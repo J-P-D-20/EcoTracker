@@ -1,22 +1,31 @@
-import { getAllUsers, getUserByEmail, addUser, updateUserLocation } from '../persistence/userRepository.js';
+import { signUpUser, getProfile, updateProfile } from '../persistence/userRepository.js';
 
 async function test() {
   try {
-    // Add a new user
-    const newUser = await addUser('JoJO', 'rabit', 'jojo@gmail.com', '123456', 'Tandag City', 'Surigao Del Sur');
-    console.log('Added user:', newUser);
+    console.log('Signing up new user...');
 
-    // Fetch all users
-    const users = await getAllUsers();
-    console.log('All users:', users);
+    const { user, profile } = await signUpUser(
+      'cabasealexiasheen@gmail.com',
+      '123456',
+      'Alexia',
+      'Cabase',
+      'Tandag City',
+      'Surigao Del Sur'
+    );
 
-    // Fetch user by email
-    const userByEmail = await getUserByEmail('cabasealexiasheen@gmail.com');
-    console.log('User by email:', userByEmail);
+    console.log('User signed up:', user);
+    console.log('Profile created:', profile);
 
-    // Update user location
-    const updatedUser = await updateUserLocation(newUser.id, 'Butuan City', 'Agusan Del Norte');
-    console.log('Updated user location:', updatedUser);
+    // Fetch profile
+    const fetchedProfile = await getProfile(user.id);
+    console.log('Fetched profile:', fetchedProfile);
+
+    // Update profile
+    const updatedProfile = await updateProfile(user.id, {
+      city: 'Butuan City',
+      province: 'Agusan Del Norte',
+    });
+    console.log('Updated profile:', updatedProfile);
 
   } catch (err) {
     console.error('Error:', err.message);
