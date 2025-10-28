@@ -1,46 +1,61 @@
 import { supabase } from './supabaseClient.js';
 
-// Fetch all users
-export async function getAllUsers() {
-  const { data, error } = await supabase
-    .from('users')
-    .select('*');
-  
+export async function signUpUser(email, password, fname, lname, city, province) {
+  // Sign up the user in Supabase Auth
+  const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+    email,
+    password,
+  });
+  if (signUpError) throw signUpError;
+
+  // Sign in immediately to create an active session
+  const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+  if (signInError) throw signInError;
+
+  const user = signInData.user;
+
+  // Insert profile using active session (RLS will allow)
+  const { data: profileData, error: profileError } = await supabase
+    .from('profiles')
+    .insert([{ id: user.id, fname, lname, city, province }])
+    .select();
+
+  if (profileError) throw profileError;
+
+  return { user, profile: profileData[0] };
+}
+
+// Sign in existing user
+export async function signInUser(email, password) {
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
   if (error) throw error;
   return data;
 }
 
-// Fetch user by email (for login and avoid duplicate registration basta kana)
-export async function getUserByEmail(email) {
+// Fetch profile
+export async function getProfile(userId) {
   const { data, error } = await supabase
-    .from('users')
+    .from('profiles')
     .select('*')
-    .eq('email', email)
-    .maybeSingle();
-  
+    .eq('id', userId)
+    .single();
   if (error) throw error;
   return data;
 }
 
-// Add a new user
-export async function addUser(fname, lname, email, password, city, province) {
+// Update profile
+export async function updateProfile(userId, updates) {
   const { data, error } = await supabase
-    .from('users')
-    .insert({ fname, lname, email, password, city, province })
-    
-
-  if (error) throw error;
-  return data;
-}
-
-// Update user's city and province if mag allow tag edit option
-export async function updateUserLocation(userId, city, province) {
-  const { data, error } = await supabase
-    .from('users')
-    .update({ city, province })
+    .from('profiles')
+    .update(updates)
     .eq('id', userId)
     .select();
-  
   if (error) throw error;
   return data[0];
 }
