@@ -16,7 +16,7 @@ export async function getUserByEmail(email) {
     .from('users')
     .select('*')
     .eq('email', email)
-    .single();
+    .maybeSingle();
   
   if (error) throw error;
   return data;
@@ -26,11 +26,11 @@ export async function getUserByEmail(email) {
 export async function addUser(fname, lname, email, password, city, province) {
   const { data, error } = await supabase
     .from('users')
-    .insert([{ fname, lname, email, password, city, province }])
-    .select();
-  
+    .insert({ fname, lname, email, password, city, province })
+    
+
   if (error) throw error;
-  return data[0]; 
+  return data;
 }
 
 // Update user's city and province if mag allow tag edit option

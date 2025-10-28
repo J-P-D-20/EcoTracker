@@ -3,7 +3,7 @@ import { getAllUsers, getUserByEmail, addUser, updateUserLocation } from '../per
 async function test() {
   try {
     // Add a new user
-    const newUser = await addUser('Alexia', 'Cabase', 'cabasealexiasheen@gmail.com', '123456', 'Tandag City', 'Surigao Del Sur');
+    const newUser = await addUser('JoJO', 'rabit', 'jojo@gmail.com', '123456', 'Tandag City', 'Surigao Del Sur');
     console.log('Added user:', newUser);
 
     // Fetch all users
