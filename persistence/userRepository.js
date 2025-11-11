@@ -1,6 +1,6 @@
 import { supabase } from './supabaseClient.js';
 
-export async function signUpUser(email, password, fname, lname, city, province) {
+export async function signUpUser(fname,lname,email,password, city, province) {
   // Sign up the user in Supabase Auth
   const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
     email,
@@ -25,7 +25,11 @@ export async function signUpUser(email, password, fname, lname, city, province) 
 
   if (profileError) throw profileError;
 
-  return { user, profile: profileData[0] };
+  return { user,
+          profile: profileData[0],
+          session: signInData.session,
+          access_token: signInData.session.access_token
+    };
 }
 
 // Sign in existing user
@@ -34,6 +38,9 @@ export async function signInUser(email, password) {
     email,
     password,
   });
+
+  console.log("data:", data.session.access_token);
+  //console.log("error:", error);
   if (error) throw error;
   return data;
 }

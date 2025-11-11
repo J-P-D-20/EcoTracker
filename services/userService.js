@@ -7,11 +7,11 @@ export async function registerUser(data) {
     if(!fname || !lname || !email || !password || !city || !province) 
         throw new Error("all fields are required")
 
-    const existingEmail = await db.getUserByEmail(email);
+    //const existingEmail = await db.getUserByEmail(email);
 
-    if(existingEmail) throw new Error("Email already registered");
+    //if(existingEmail) throw new Error("Email already registered");
 
-    await db.addUser(fname,lname,email,password,city,province)
+    await db.signUpUser(fname,lname,email,password,city,province)
 
 
     return {message : "Registered Successfully"};
@@ -21,8 +21,13 @@ export async function registerUser(data) {
 
 //ignore logIn sa, focus sa ta sa registration
 export async function logIn(data) {
-    const {email,password} = data;
-
-
+    try{
+        const {email,password} = data;
+        const result = await db.signInUser(email,password)
+        return result
+    } catch (err) {
+        console.error({message : err.message});
+        throw err;
+    }
     
 }

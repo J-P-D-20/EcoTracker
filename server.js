@@ -1,12 +1,23 @@
 import express from 'express'
-import userController from './controllers/userController.js';
-
+import signUpController from './controllers/signUpController.js';
+import signInController from './controllers/signInController.js';
+import weatherController from  './controllers/weatherController.js'
+import co2CalcuclationController from './controllers/co2CalculationController.js';
 const app = express()
 app.use(express.json());
 
 
+//register
+app.use('/register',signUpController );
 
-app.use('/register',userController);
+//log in
+app.use('/logIn', signInController);
+
+// weather and air quality
+app.use('/weather', weatherController);
+
+//calculations
+app.use('/co2', co2CalcuclationController);
 
 
 

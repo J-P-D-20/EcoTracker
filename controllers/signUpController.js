@@ -12,7 +12,7 @@ router.post('/',async (req,res) =>{
         console.log("Incoming data:", data);
         await userService.registerUser(data);
         console.log(data);
-        res.status(200).send({message : "Registered Successfully"});
+        res.status(200).send({message : "Registered successfully"});
     } catch (err){
         res.status(500).send({message: err.message});
     }
