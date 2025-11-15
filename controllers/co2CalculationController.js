@@ -1,5 +1,6 @@
 import express from 'express';
 import * as calculation from '../services/co2CalculationService.js';
+import { getAverageFootprint } from '../persistence/co2CalculationRepository.js';
 
 
 const router = express.Router();
@@ -57,5 +58,16 @@ router.post('/waste', async (req,res) => {
         res.status(500).json({message : err.message})
     }
 })
+
+// CO2 average route
+router.get('/average', async (req, res) => {
+    try {
+        const userId = req.user.id;  
+        const average = await getAverageFootprint(userId);
+        res.json({ average: `${average} kg` });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
 
 export default router;
