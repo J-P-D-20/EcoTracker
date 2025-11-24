@@ -1,0 +1,10 @@
+{
+  "appId": "come.ecotracker.app",
+  "appName": "EcoTracker",
+  "webDir": "dist",
+  "plugins": {
+    "SplashScreen": {
+      "launchAutoHide": false
+    }
+  }
+}
