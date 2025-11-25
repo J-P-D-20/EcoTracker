@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8" />
-    <title>Awesome Capacitor App</title>
+    <title>EcoTracker</title>
     <meta
       name="viewport"
       content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
@@ -10,23 +10,44 @@
     <meta name="format-detection" content="telephone=no" />
     <meta name="msapplication-tap-highlight" content="no" />
 
-    <script
-      type="module"
-      src="https://unpkg.com/@ionic/pwa-elements@latest/dist/ionicpwaelements/ionicpwaelements.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://unpkg.com/@ionic/pwa-elements@latest/dist/ionicpwaelements/ionicpwaelements.js"
-    ></script>
 
     <link rel="icon" type="image/x-icon" href="./assets/icon/favicon.ico" />
     <link rel="manifest" href="./manifest.json" />
-    <link rel="stylesheet" href="./css/style.css" />
     <meta name="theme-color" content="#31d53d" />
-  </head>
-  <body>
-    <capacitor-welcome></capacitor-welcome>
 
-    <script src="./js/capacitor-welcome.js" type="module"></script>
-  </body>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="./css/style.css" /> 
+    <link rel="stylesheet" href="./css/welcome.css" />
+    <link rel="stylesheet" href="./css/onboarding.css" />
+  </head>
+
+  <body>
+    <div id="welcome-container" class="active-page">
+        
+        <div class="logo-area">
+            <img src="./assets/imgs/logo.png" alt="EcoTracker Logo: Footprint and Leaf" class="app-logo">
+        </div>
+        
+        <div class="text-area">
+            <h1 class="app-title">EcoTracker</h1>
+            <p class="app-subtitle">Live Light. Breathe Easy.</p>
+        </div>
+        
+        <button id="getStartedButton" class="cta-button">
+            Get Started
+        </button>
+    </div>
+
+    <div id="onboarding-container" class="hidden-page">
+        </div>
+
+    <capacitor-welcome></capacitor-welcome>
+    
+    <script src="./js/router.js" type="module"></script>
+    <script src="./js/onboarding.js" type="module"></script>
+    <script src="./js/welcomePage.js" type="module"></script>
+</body>
 </html>

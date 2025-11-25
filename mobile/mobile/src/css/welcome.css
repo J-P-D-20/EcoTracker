@@ -1,0 +1,59 @@
+.welcome-container {
+    text-align: center;
+}
+
+
+/* Logo Styling */
+.logo-area {
+    display: flex; 
+    flex-direction: column;
+    justify-content: flex-end; 
+    align-items: center;
+    margin-bottom: 2rem; 
+}
+
+.app-logo {
+    width: 270px;
+    height: auto;
+}
+
+/* Text Area */
+.text-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    margin-top: 0; 
+    margin-bottom: 1rem; 
+}
+
+.app-title {
+    color: #000;
+    text-align: center;
+    font-family: Poppins;
+    font-size: 3rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1; 
+    
+    letter-spacing: 0.03rem;
+    
+    margin-bottom: 0rem;
+    margin-top: 0;
+}
+
+.app-subtitle {
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #333333;
+    font-family: Poppins;
+    margin-top: 0;
+}
+
+#welcome-container .cta-button {
+    margin-top: auto;
+    margin-left: auto;
+    margin-right: auto; 
+    display: block; 
+    margin-bottom: 80px; 
+}
