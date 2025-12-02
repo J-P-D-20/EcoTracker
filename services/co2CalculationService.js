@@ -1,5 +1,7 @@
 
-export async function transportationCo2Calculation(transportation, distance) {
+import * as db from '../persistence/co2CalculationRepository.js'
+
+export async function transportationCo2Calculation(supabaseClient,userID,transportation, distance) {
   try {
     const transportData = [
       ['Small Car', 0.120],
@@ -17,7 +19,16 @@ export async function transportationCo2Calculation(transportation, distance) {
     const [, emission] = transportData.find(([t]) => t === transportation);
     const result = emission * distance;
 
-    return result;
+    const savedData = await db.saveCalculation(
+        supabaseClient,
+         userID,
+        'transportation',{
+            transportation: transportation,
+            distance: distance
+        },
+         result);
+
+    return result
 
   } catch (err) {
     throw err;
@@ -25,7 +36,7 @@ export async function transportationCo2Calculation(transportation, distance) {
 }
 
 
-export async function energyCo2Calculation(usage,hours){
+export async function energyCo2Calculation(supabaseClient,userID,usage,hours){
     try{
         let result;
         switch(usage){
@@ -41,7 +52,17 @@ export async function energyCo2Calculation(usage,hours){
                 result = (hours * 2.0 * 0.55).toFixed(2);
             break;
         }
-        return result;
+        
+        const savedData = await db.saveCalculation(
+            supabaseClient,
+            userID,
+            'energy',{
+                usage: usage,
+                hours: hours
+            },
+            result);
+            
+        return parseFloat(result);
     } catch (err) {
         throw err;
     }
@@ -49,7 +70,7 @@ export async function energyCo2Calculation(usage,hours){
 
 
 
-export async function consumptionCo2Calculation(category,type,quantity){
+export async function consumptionCo2Calculation(supabaseClient,userID,category,type,quantity){
     try{
         let result;
         const foodCategory = [
@@ -73,6 +94,16 @@ export async function consumptionCo2Calculation(category,type,quantity){
             const [,emission] = goodsCatgory.find(([t]) => t === type)
             result = emission * quantity
         }
+        
+        const savedData = await db.saveCalculation(
+            supabaseClient,
+            userID,
+            'consumption',{
+                category: category,
+                type: type,
+                quantity: quantity
+            },
+            result);
 
         return result;
     } catch (err) {
@@ -81,7 +112,7 @@ export async function consumptionCo2Calculation(category,type,quantity){
 }
 
 
-export async function wasteCo2Calculation(waste,recycled ='false'){
+export async function wasteCo2Calculation(supabaseClient,userID,waste,recycled ='false'){
     try{
         let result
         if(recycled){
@@ -89,6 +120,15 @@ export async function wasteCo2Calculation(waste,recycled ='false'){
         }else{
             result = waste * 0.10;
         }
+        
+        const savedData = await db.saveCalculation(
+            supabaseClient,
+            userID,
+            'waste',{
+                waste: waste,
+                recycled: recycled
+            },
+            result);
 
         return result;
     } catch(err){

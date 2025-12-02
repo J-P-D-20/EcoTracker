@@ -1,17 +1,23 @@
 import express from 'express';
 import * as calculation from '../services/co2CalculationService.js';
 import { getAverageFootprint } from '../persistence/co2CalculationRepository.js';
-
+import {AuthenticateToken }from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
 
 //transportation route
-router.post('/transportation', async (req , res) => {
+router.post('/transportation',AuthenticateToken, async (req , res) => {
     try{
+    const userid =  req.user.id
     const {transportation, distance} = req.body;
 
-    const result = await calculation.transportationCo2Calculation(transportation,distance);
+    const result = await calculation.transportationCo2Calculation(
+        req.supabase,
+        userid,
+        transportation,
+        distance
+    );
     
     res.json({result :`${result.toFixed(2)} kg`});
     } catch (err){
@@ -20,11 +26,12 @@ router.post('/transportation', async (req , res) => {
 })
 
 //energy route
-router.post('/energy', async (req,res) =>{
+router.post('/energy', AuthenticateToken ,async (req,res) =>{
     try{
+        const userid = req.user.id;
         const {usage,hours} = req.body;
         
-        const result = await calculation.energyCo2Calculation(usage,hours);
+        const result = await calculation.energyCo2Calculation(req.supabase,userid,usage,hours);
 
         res.json({result :`${result} kg`});
     } catch(err){
@@ -34,11 +41,12 @@ router.post('/energy', async (req,res) =>{
 })
 
 //consumption route
-router.post('/consumption', async (req,res) => {
+router.post('/consumption',AuthenticateToken, async (req,res) => {
     try {
+        const userid = req.user.id;
         const {category,type,quantity} = req.body;
         
-        const result = await calculation.consumptionCo2Calculation(category,type,quantity)
+        const result = await calculation.consumptionCo2Calculation(req.supabase,userid,category,type,quantity)
 
          res.json({result :`${result} kg`});
     } catch(err) {
@@ -47,11 +55,12 @@ router.post('/consumption', async (req,res) => {
 })
 
 //waste route
-router.post('/waste', async (req,res) => {
+router.post('/waste',AuthenticateToken, async (req,res) => {
     try {
+        const userid = req.user.id;
         const {waste,recycled} = req.body;
         
-        const result = await calculation.wasteCo2Calculation(waste,recycled);
+        const result = await calculation.wasteCo2Calculation(req.supabase,userid,waste,recycled);
 
          res.json({result :`${result} kg`});
     } catch(err) {
@@ -60,10 +69,10 @@ router.post('/waste', async (req,res) => {
 })
 
 // CO2 average route
-router.get('/average', async (req, res) => {
+router.get('/average',AuthenticateToken, async (req, res) => {
     try {
         const userId = req.user.id;  
-        const average = await getAverageFootprint(userId);
+        const average = await getAverageFootprint(req.supabase,userId);
         res.json({ average: `${average} kg` });
     } catch (err) {
         res.status(500).json({ message: err.message });

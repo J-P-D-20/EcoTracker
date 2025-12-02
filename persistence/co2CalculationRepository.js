@@ -1,7 +1,6 @@
-import { supabase } from './supabaseClient.js';
 
 // Saves a new calculation to the DB 
-export async function saveCalculation(userId, calculationType, inputs, result) {
+export async function saveCalculation(supabaseClient,userId, calculationType, inputs, result) {
   try {
     const data = {
       user_id: userId,
@@ -10,7 +9,7 @@ export async function saveCalculation(userId, calculationType, inputs, result) {
       ...inputs  
     };
 
-    const { data: insertedData, error } = await supabase
+    const { data: insertedData, error } = await supabaseClient
       .from('co2_calculations')
       .insert(data)
       .select()
@@ -24,9 +23,9 @@ export async function saveCalculation(userId, calculationType, inputs, result) {
 }
 
 // Fetches all calculations for a user
-export async function getCalculationsByUser(userId) {
+export async function getCalculationsByUser(supabaseClient,userId) {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
       .from('co2_calculations')
       .select('*')
       .eq('user_id', userId)
@@ -40,9 +39,9 @@ export async function getCalculationsByUser(userId) {
 }
 
 // Calculates the total CO2 footprint for a user 
-export async function getTotalFootprint(userId) {
+export async function getTotalFootprint(supabaseClient,userId) {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
       .from('co2_calculations')
       .select('result')
       .eq('user_id', userId);
@@ -90,10 +89,10 @@ export async function deleteCalculation(calculationId, userId) {
 }
 
 // Calculates the average CO2 footprint for a user 
-export async function getAverageFootprint(userId) {
+export async function getAverageFootprint(supabaseClient,userId) {
     try {
         // Use Supabase's aggregation to compute the average directly in the query
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
             .from('co2_calculations')
            .select('result')  
            .eq('user_id', userId);
