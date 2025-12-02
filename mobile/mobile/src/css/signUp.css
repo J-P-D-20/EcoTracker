@@ -1,0 +1,15 @@
+#signInUp-container {
+    background-color: #846f06; /* Dark yellow background */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+.auth-form {
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    background: white;
+    text-align: center;
+}
