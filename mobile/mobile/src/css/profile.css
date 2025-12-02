@@ -301,6 +301,7 @@ input:checked + .slider:before {
     .profile-page {
         max-width: 800px;
         margin-left: 80px;
+        padding: 30px;
     }
 
     .header h2 {
