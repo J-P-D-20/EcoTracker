@@ -109,3 +109,53 @@ export async function getAverageFootprint(userId) {
         throw err;
     }
 }
+
+// Fetch only the smallest result for a user
+export async function getMinFootprint(userId) {
+  try {
+    const { data, error } = await supabase
+      .from('co2_calculations')
+      .select('result')
+      .eq('user_id', userId)
+      .order('result', { ascending: true })
+      .limit(1);
+
+    if (error) throw new Error(`Failed to calculate minimum footprint: ${error.message}`);
+    const raw = data && data.length ? data[0].result : null;
+    return raw === null ? '0.00' : parseFloat(raw).toFixed(2);
+  } catch (err) {
+    throw err;
+  }
+}
+
+// Fetch only the largest result for a user
+export async function getMaxFootprint(userId) {
+  try {
+    const { data, error } = await supabase
+      .from('co2_calculations')
+      .select('result')
+      .eq('user_id', userId)
+      .order('result', { ascending: false })
+      .limit(1);
+
+    if (error) throw new Error(`Failed to calculate maximum footprint: ${error.message}`);
+    const raw = data && data.length ? data[0].result : null;
+    return raw === null ? '0.00' : parseFloat(raw).toFixed(2);
+  } catch (err) {
+    throw err;
+  }
+}
+
+// Calculates both min and max CO2 footprint
+export async function getMinAndMaxFootprint(userId) {
+  try {
+    const [min, max] = await Promise.all([
+      getMinFootprint(userId),
+      getMaxFootprint(userId),
+    ]);
+
+    return { min, max };
+  } catch (err) {
+    throw err;
+  }
+}
