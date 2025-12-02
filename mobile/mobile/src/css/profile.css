@@ -1,0 +1,458 @@
+/* GLOBAL */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+/* COLOR VARIABLES */
+:root {
+    /* Base Colors */
+    --bg-light: #f8f8f8;
+    --bg-white: #ffffff;
+    --bg-card-blue: #dff1ff;
+    --bg-gray-btn: #f2f2f2;
+
+    /* Text Colors */
+    --text-dark: #1c1c1e;
+    --text-medium: #555;
+
+    /* Brand Colors */
+    --green: #34a853;
+    --light-green: #84f78c;
+
+    /* Borders */
+    --border-light: #ddd;
+    --border-soft: #eee;
+
+    /* Dark Mode Colors */
+    --dark-bg: #1c1c1e;
+    --dark-surface: #2c2c2e;
+    --dark-card: #3a3a3c;
+    --dark-border: #3a3a3c;
+    --dark-green: #90ee90;
+
+    /* Icon Color*/
+    --icon-filter: invert(44%) sepia(94%) saturate(420%) hue-rotate(90deg) brightness(92%) contrast(94%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+}
+
+/* SEMIBOLD */
+.header h2,
+.profile-card h3,
+.section-title {
+    font-weight: 600;
+}
+
+/* MEDIUM */
+.profile-card p {
+    font-weight: 500;
+}
+
+.left,
+.status,
+.value,
+.menu-item {
+    font-weight: 400;
+}
+
+body {
+    background: var(--bg-light);
+    display: flex;
+    justify-content: center;
+}
+
+/* Center page */
+.profile-page {
+    width: 100%;
+    max-width: 390px;
+    padding: 20px;
+}
+
+/* HEADER */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.header h2 {
+    font-size: 30px;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.back-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+/* SWITCH */
+.switch {
+  font-size: 13px;
+  position: relative;
+  display: inline-block;
+  width: 3.5em;
+  height: 2em;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  --background: var(--light-green);
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--background);
+  transition: .5s;
+  border-radius: 30px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1.4em;
+  width: 1.4em;
+  border-radius: 50%;
+  left: 10%;
+  bottom: 15%;
+  box-shadow: inset 8px -4px 0px 0px #ffffff;
+  background: var(--background);
+  transition: .5s;
+}
+
+input:checked + .slider {
+  background-color: var(--light-green);
+}
+
+input:checked + .slider:before {
+  transform: translateX(100%);
+  box-shadow: inset 15px -4px 0px 15px #ffffff;
+}
+
+/* PROFILE CARD */
+.profile-card {
+    background: var(--bg-card-blue);
+    padding: 20px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.profile-card .avatar {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    background: #ccc;
+    margin-right: 15px;
+    border: 3px solid var(--light-green);
+    object-fit: cover;
+}
+
+.profile-card h3 {
+    font-size: 25px;
+}
+
+.profile-card p {
+    font-size: 14px;
+    color: var(--text-medium);
+}
+
+/* SECTION TITLES */
+.section-title {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+/* CARD LISTS */
+.card-list {
+    background: var(--bg-white);
+    border-radius: 15px;
+    padding: 10px 15px;
+    margin-bottom: 25px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border-soft);
+}
+
+.row:last-child {
+    border-bottom: none;
+}
+
+.left {
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.icon-img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    margin-left: 5px;
+    filter: var(--icon-filter);
+}
+
+.status {
+    color: var(--green);
+    font-size: 14px;
+}
+
+.value {
+    font-size: 14px;
+    color: var(--text-medium);
+}
+
+/* MENU */
+.menu {
+    margin-bottom: 90px;
+    padding-left: 10px;   
+    padding-right: 10px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;           
+    gap: 12px;                      
+    padding: 18px 0;
+    border-bottom: 1px solid var(--border-light);
+    font-size: 15px;
+}
+
+/* NAVBAR */
+.navbar {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 390px;
+    height: 70px;
+    background: var(--bg-white);
+    border-top: 1px solid var(--border-light);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-bottom: env(safe-area-inset-bottom); 
+}
+
+.nav-icon {
+    width: 60px;  
+    height: 60px;  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.nav-icon-img {
+    width: 26px;
+    height: 26px;
+}
+
+/* DARK MODE */
+.dark-mode {
+    background: var(--dark-bg);
+    color: white;
+
+    --bg-light: var(--dark-bg);
+    --bg-white: var(--dark-surface);
+    --bg-card-blue: var(--dark-card);
+    --border-light: var(--dark-border);
+    --border-soft: var(--dark-border);
+}
+
+.dark-mode .status {
+    color: var(--dark-green);
+}
+
+/* Desktop responsiveness starting from 768px width */
+@media (min-width: 768px) {
+    .profile-page {
+        max-width: 800px;
+        margin-left: 80px;
+    }
+
+    .header h2 {
+        font-size: 36px;
+    }
+
+    .back-btn {
+        width: 50px;
+        height: 50px;
+    }
+
+    .back-btn img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .profile-card {
+        padding: 30px;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .profile-card .avatar {
+        width: 100px;
+        height: 100px;
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+
+    .profile-card h3 {
+        font-size: 28px;
+    }
+
+    .profile-card p {
+        font-size: 16px;
+    }
+
+    .section-title {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    .card-list {
+        margin-bottom: 25px; 
+        border: none; 
+    }
+
+    .card-list .row {
+        padding: 14px 0; 
+    }
+
+    .menu {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 50px;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .menu-item {
+        border-bottom: none;
+        padding: 20px 10px;
+        font-size: 16px;
+    }
+
+    /* Reposition navbar to a vertical sidebar on the left */
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0; 
+        bottom: 0;
+        right: auto; 
+        transform: none;
+        width: 80px;
+        max-width: none;
+        height: 100vh; 
+        background: var(--bg-white);
+        border-top: none;
+        border-right: 1px solid var(--border-light);
+        display: flex;
+        flex-direction: column; 
+        justify-content: space-around;
+        align-items: center;
+        padding: 20px 0;
+        gap: 0; 
+    }
+
+    .nav-icon {
+        width: 60px;
+        height: 60px; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .nav-icon-img {
+        width: 26px;
+        height: 26px;
+    }
+}
+
+/* Further adjustments for very large screens (e.g., 1200px and up) */
+@media (min-width: 1200px) {
+    .profile-page {
+        max-width: 1200px;
+        padding: 40px;
+        margin-left: 100px; 
+    }
+
+    .header h2 {
+        font-size: 42px;
+    }
+
+    .profile-card {
+        padding: 40px;
+    }
+
+    .profile-card .avatar {
+        width: 120px;
+        height: 120px;
+    }
+
+    .profile-card h3 {
+        font-size: 32px;
+    }
+
+    .section-title {
+        font-size: 22px;
+    }
+
+    .card-list {
+        margin-bottom: 25px; 
+        border: none; 
+    }
+
+    .menu-item {
+        font-size: 18px;
+    }
+
+    .navbar {
+        width: 100px; 
+        padding: 30px 0;
+    }
+
+    .nav-icon {
+        width: 80px;
+        height: 80px;
+    }
+
+    .nav-icon-img {
+        width: 32px;
+        height: 32px;
+    }
+}
