@@ -69,7 +69,7 @@ export class OnboardingComponent {
                 ${this.slides.map(slide => this.createSlideMarkup(slide)).join('')}
             </div>
         `;
-        
+
         this.wrapper = document.getElementById('onboardingWrapper');
 
         
@@ -95,7 +95,7 @@ export class OnboardingComponent {
         console.log('Onboarding complete! Navigating to Sign-Up/Login...');
         
         // Use the new AppRouter to switch pages
-        AppRouter.showPage('auth-container'); 
+        AppRouter.showPage('signInUp-container'); 
     }
     
 
@@ -118,5 +118,15 @@ export class OnboardingComponent {
                 button.addEventListener('click', () => this.nextSlide());
             });
         }, 0); 
+    }
+}
+
+// Export initialization function for use in welcomePage.js
+export function initializeOnboarding() {
+    const onboardingContainer = document.getElementById('onboarding-container');
+    if (onboardingContainer) {
+        new OnboardingComponent('onboarding-container');
+    } else {
+        console.warn('Onboarding container not found.');
     }
 }

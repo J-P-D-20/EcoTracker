@@ -2,17 +2,24 @@
  * * Handles all application-wide page transitions.
  */
 
-// List of all page container IDs
-const pageIds = ['welcome-container', 'onboarding-container', 'auth-container'];
+// List of all page container IDs in the application.
+const pageIds = [
+    'welcome-container', 
+    'onboarding-container', 
+    'signInUp-container', 
+    'home-container',
+    'insights-container',
+    'profile-container'
+];
 
 export const AppRouter = {
     /**
      * Shows a specific page container and hides all others.
-     * @param {string} targetId -
+     * @param {string} targetId - The ID of the <div> element to show.
      */
     showPage(targetId) {
         if (!pageIds.includes(targetId)) {
-            console.error(`Invalid page ID: ${targetId}`);
+            console.error(`Invalid page ID: ${targetId}. Please check the pageIds list in router.js.`);
             return;
         }
 
@@ -20,19 +27,19 @@ export const AppRouter = {
             const page = document.getElementById(id);
             if (page) {
                 if (id === targetId) {
+                    // Show the target page
                     page.classList.remove('hidden-page');
                     page.classList.add('active-page');
                     
-    
-                    page.style.display = id === 'welcome-container' ? 'flex' : 'block';
-                    
-                    if (id === 'onboarding-container' && !page.hasRendered) {
-                        page.hasRendered = true; 
-                    }
+                    // Reset inline display style to let CSS handle flex/block
+                    page.style.display = ''; 
+
                 } else {
+                    // Hide all other pages
                     page.classList.remove('active-page');
                     page.classList.add('hidden-page');
                     
+                    // Explicitly hide the page
                     page.style.display = 'none';
                 }
             }

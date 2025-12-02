@@ -1,7 +1,19 @@
-.welcome-container {
-    text-align: center;
+#welcome-container { 
+    display: flex;
+    flex-direction: column;
+    height: 100vh; 
+    width: 100vw;
+    align-items: center; 
+    text-align: center; /* Keep this only if you want inline text inside children centered */
 }
 
+#welcome-container .cta-button {
+    margin-top: auto; 
+    margin-left: auto;
+    margin-right: auto; 
+    display: block; 
+    margin-bottom: 80px; 
+}
 
 /* Logo Styling */
 .logo-area {
@@ -9,7 +21,8 @@
     flex-direction: column;
     justify-content: flex-end; 
     align-items: center;
-    margin-bottom: 2rem; 
+    margin-bottom: 1rem;
+    margin-top: 40px; 
 }
 
 .app-logo {
@@ -50,10 +63,3 @@
     margin-top: 0;
 }
 
-#welcome-container .cta-button {
-    margin-top: auto;
-    margin-left: auto;
-    margin-right: auto; 
-    display: block; 
-    margin-bottom: 80px; 
-}
