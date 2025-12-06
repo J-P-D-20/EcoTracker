@@ -1,26 +1,106 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EcoTracker | Home</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/homePage.css" />
-  </head>
-  <body>
-    <div id="home-container">
-      <h2 class="page-title">Home Dashboard</h2>
-      <p>This is your main content area.</p>
-      <div class="home-actions">
-        <a class="cta-button" href="insights.html">Go to Insights</a>
-        <a class="cta-button" href="profile.html">Go to Profile</a>
-      </div>
-      <div class="home-actions" style="margin-top: 1.5rem;">
-        <a class="cta-button" href="signIn.html">Log Out</a>
-      </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Environmental Dashboard</title>
+    <link rel="stylesheet" href="css/homePage.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="page-title">Home</h1>
+            <div class="earth-icon-container">
+                <img src="https://cdn-icons-png.flaticon.com/512/44/44386.png" alt="Earth" class="earth-icon">
+            </div>
+        </header>
+        
+        <main class="main-content">
+            <section class="temperature-section">
+                <div class="temperature-display">
+                    <h2 class="temperature">27℃</h2>
+                </div>
+            </section>
+            
+            <section class="air-quality-section">
+                <div class="section-header">
+                    <h3 class="section-title">Air Quality Index</h3>
+                    <div class="air-quality-icon-container">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2693/2693804.png" alt="Air Quality" class="air-quality-icon">
+                    </div>
+                </div>
+                <div class="air-quality-value">53</div>
+                <div class="air-quality-status">Moderate</div>
+            </section>
+            
+            <section class="co2-section">
+                <div class="co2-value">0%</div>
+                <div class="co2-label">CO2 emitted</div>
+            </section>
+            
+            <section class="routine-section">
+                <h3 class="section-title">Daily Routine Log</h3>
+                <p class="routine-description">Input your daily routine here. Click each category</p>
+                
+                <div class="routine-categories">
+                    <div class="category-card" data-category="transportation">
+                        <div class="category-icon">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2165/2165004.png" alt="Transportation" class="leaf-icon">
+                        </div>
+                        <span class="category-name">Transportation</span>
+                    </div>
+                    
+                    <div class="category-card" data-category="energy">
+                        <div class="category-icon">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2165/2165004.png" alt="Energy" class="leaf-icon">
+                        </div>
+                        <span class="category-name">Energy</span>
+                    </div>
+                    
+                    <div class="category-card" data-category="consumption">
+                        <div class="category-icon">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2165/2165004.png" alt="Consumption" class="leaf-icon">
+                        </div>
+                        <span class="category-name">Consumption</span>
+                    </div>
+                    
+                    <div class="category-card" data-category="waste">
+                        <div class="category-icon">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2165/2165004.png" alt="Waste" class="leaf-icon">
+                        </div>
+                        <span class="category-name">Waste</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <!-- Hidden navigation menu for mobile -->
+        <nav class="mobile-nav" id="mobileNav">
+            <div class="nav-header">
+                <h3>Menu</h3>
+                <button class="close-menu" id="closeMenu">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <ul class="nav-list">
+                <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="#"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+                <li><a href="#"><i class="fas fa-history"></i> History</a></li>
+                <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="#"><i class="fas fa-user"></i> Profile</a></li>
+            </ul>
+        </nav>
+        
+        <!-- Menu toggle for mobile (hidden on desktop) -->
+        <button class="mobile-menu-toggle" id="mobileMenuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <!-- Overlay for mobile menu -->
+        <div class="overlay" id="overlay"></div>
     </div>
-  </body>
+    
+    <script src="home.js"></script>
+</body>
 </html>
