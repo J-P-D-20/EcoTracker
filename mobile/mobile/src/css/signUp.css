@@ -1,15 +1,135 @@
-#signInUp-container {
-    background-color: #846f06; /* Dark yellow background */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+:root {
+    --green: #02542D;
+    --light-green: #B0FC87;
+    --bg-white: #ffffff;
+    --text-dark: #1c1c1e;
+    --grey-text: #B3B3B3;
 }
-.auth-form {
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    background: white;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background: var(--bg-white);
+}
+
+.registration-page {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 25px;
+}
+
+/* Logo */
+.logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.logo {
+    width: 120px;
+    height: auto;
+}
+
+/* Title */
+.page-title {
     text-align: center;
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--green);
+    margin-bottom: 25px;
+}
+
+/* Form Box */
+.form-box {
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid var(--green);
+}
+
+form {
+    width: 100%;
+}
+
+/* Label */
+form label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--green);
+    margin-bottom: 6px;
+    display: block;
+}
+
+/* Input Fields */
+form input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--green);
+    outline: none;
+    font-size: 14px;
+    margin-bottom: 18px;
+}
+
+form input::placeholder {
+    color: var(--grey-text);
+    opacity: 1; 
+}
+
+/* Two-column rows */
+.form-row {
+    display: flex;
+    gap: 15px;
+}
+
+/* Button */
+.register-btn {
+    width: 100%;
+    padding: 14px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 10px;
+    background: var(--light-green);
+    color: var(--text-dark);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+.register-btn:hover {
+    opacity: 0.9;
+}
+
+/* Desktop and large screen layout */
+@media (min-width: 768px) {
+
+    .registration-page {
+        max-width: 450px; 
+        margin: 10px auto;
+    }
+
+    .logo {
+        width: 100px;
+    }
+
+    .form-box {
+        padding: 30px;
+    }
+
+    form input {
+        font-size: 15px;
+        padding: 12px 14px;
+    }
+
+    .page-title {
+        font-size: 36px;
+    }
 }
