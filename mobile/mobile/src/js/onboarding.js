@@ -2,10 +2,6 @@
  * * Renders the Onboarding Screens and manages slide transitions.
  */
 
-// Import the next page manager (we'll create this file next)
-// NOTE: We need a central router/page manager to handle transitions.
-import { AppRouter } from './router.js'; 
-
 export class OnboardingComponent {
     constructor(elementId) {
         this.slides = [
@@ -92,10 +88,8 @@ export class OnboardingComponent {
 
     // New method to handle the final navigation
     finishOnboarding() {
-        console.log('Onboarding complete! Navigating to Sign-Up/Login...');
-        
-        // Use the new AppRouter to switch pages
-        AppRouter.showPage('signInUp-container'); 
+        console.log('Onboarding complete! Navigating to Sign-Up...');
+        window.location.href = 'signUp.html';
     }
     
 

@@ -11,3 +11,14 @@
     color: #4CAF50;
     margin-bottom: 20px;
 }
+
+.home-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.home-actions .cta-button {
+    text-decoration: none;
+}

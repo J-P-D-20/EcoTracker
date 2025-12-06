@@ -15,8 +15,19 @@
     font-family: "Poppins", sans-serif;
 }
 
+html,
 body {
+    height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background: var(--bg-white);
+    padding: 40px 20px;
+    overflow: hidden;
 }
 
 .registration-page {
@@ -89,6 +100,22 @@ form input::placeholder {
     gap: 15px;
 }
 
+.auth-switch {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin: 5px 0 15px;
+    font-size: 0.95rem;
+    color: var(--grey-text);
+}
+
+.auth-switch-link {
+    color: var(--green);
+    font-weight: 600;
+    text-decoration: underline;
+}
+
 /* Button */
 .register-btn {
     width: 100%;
@@ -102,6 +129,9 @@ form input::placeholder {
     font-weight: 600;
     cursor: pointer;
     transition: 0.2s ease-in-out;
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
 }
 
 .register-btn:hover {
@@ -131,5 +161,11 @@ form input::placeholder {
 
     .page-title {
         font-size: 36px;
+    }
+}
+
+@media (max-width: 600px) {
+    body {
+        overflow-y: auto;
     }
 }

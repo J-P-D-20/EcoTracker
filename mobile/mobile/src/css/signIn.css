@@ -130,18 +130,29 @@ h1 {
 .btn {
  flex: 1;
  padding: 12px; 
- border: none;
  border-radius: 10px; 
  font-size: 16px;
  font-weight: 600; 
  cursor: pointer;
  transition: 0.2s ease-in-out;
+ text-decoration: none;
+ text-align: center;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ border: 1px solid var(--green-primary);
 }
 
 /* Set default style for Login button (Hollow/White interior) */
 .login-btn {
     background-color: transparent;
     color: var(--green-primary);
+}
+
+.signup-btn {
+    background-color: var(--green-button);
+    color: var(--text-dark);
+    border-color: var(--green-button);
 }
 
 /* Login Button Hover Effect */
@@ -155,6 +166,7 @@ background-color: var(--background-color);
 /* Sign up Button Hover Effect */
 .signup-btn:hover {
  background-color: var(--green-light-hover); 
+ border-color: var(--green-light-hover);
 }
 
 /* --- Forgot Password Link --- */
