@@ -5,14 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Environmental Dashboard</title>
     <link rel="stylesheet" href="css/homePage.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
         <header class="header">
             <h1 class="page-title">Home</h1>
             <div class="earth-icon-container">
-                <img src="https://cdn-icons-png.flaticon.com/512/44/44386.png" alt="Earth" class="earth-icon">
+                <img src="assets/imgs/earth.png" alt="Earth" class="earth-icon">
             </div>
         </header>
         
@@ -26,12 +25,16 @@
             <section class="air-quality-section">
                 <div class="section-header">
                     <h3 class="section-title">Air Quality Index</h3>
+                </div>
+                <div class="air-quality-content">
+                    <div class="air-quality-left">
+                        <div class="air-quality-value">53</div>
+                        <div class="air-quality-status">Moderate</div>
+                    </div>
                     <div class="air-quality-icon-container">
-                        <img src="https://cdn-icons-png.flaticon.com/512/2693/2693804.png" alt="Air Quality" class="air-quality-icon">
+                        <img src="assets/imgs/airQuality.png" alt="Air Quality" class="air-quality-icon">
                     </div>
                 </div>
-                <div class="air-quality-value">53</div>
-                <div class="air-quality-status">Moderate</div>
             </section>
             
             <section class="co2-section">
@@ -44,63 +47,150 @@
                 <p class="routine-description">Input your daily routine here. Click each category</p>
                 
                 <div class="routine-categories">
-                    <div class="category-card" data-category="transportation">
-                        <div class="category-icon">
-                            <img src="https://cdn-icons-png.flaticon.com/512/2165/2165004.png" alt="Transportation" class="leaf-icon">
-                        </div>
-                        <span class="category-name">Transportation</span>
+    
+    <div class="routine-item" data-log-name="Transportation"> 
+        <div class="category-card">
+            <div class="category-icon">🚗</div> 
+            <span class="category-name">Transportation Log</span>
+            <span class="category-chevron">›</span>
+        </div>
+        <div class="routine-details">
+            <div class="routine-details-inner">
+                <div class="log-entry-row nested-dropdown">
+                    <div class="nested-dropdown-trigger" data-dropdown-id="transportMode">
+                        <span id="transportModeLabel">Select Mode of Transportation</span>
+                        <span class="category-chevron">›</span>
                     </div>
                     
-                    <div class="category-card" data-category="energy">
-                        <div class="category-icon">
-                            <img src="https://cdn-icons-png.flaticon.com/512/2165/2165004.png" alt="Energy" class="leaf-icon">
-                        </div>
-                        <span class="category-name">Energy</span>
-                    </div>
-                    
-                    <div class="category-card" data-category="consumption">
-                        <div class="category-icon">
-                            <img src="https://cdn-icons-png.flaticon.com/512/2165/2165004.png" alt="Consumption" class="leaf-icon">
-                        </div>
-                        <span class="category-name">Consumption</span>
-                    </div>
-                    
-                    <div class="category-card" data-category="waste">
-                        <div class="category-icon">
-                            <img src="https://cdn-icons-png.flaticon.com/512/2165/2165004.png" alt="Waste" class="leaf-icon">
-                        </div>
-                        <span class="category-name">Waste</span>
+                    <div class="nested-options" id="transportMode">
+                        <div class="nested-option" data-value="Walk">🚶‍♂️ Walk</div>
+                        <div class="nested-option" data-value="Motorcycle">🏍️ Motorcycle</div>
+                        <div class="nested-option" data-value="Car">🚗 Car</div>
+                        <div class="nested-option" data-value="Bus">🚌 Bus</div>
+                        <div class="nested-option" data-value="Electric Bus">⚡🚌 Electric Bus</div>
+                        <div class="nested-option" data-value="Train">🚆 Train</div>
                     </div>
                 </div>
+                <div class="log-entry-row">
+                    <label>No. of kilometers traveled</label>
+                    <input type="number" class="log-input-field" placeholder="Value">
+                </div>
+                <button class="log-calculate-btn">Calculate</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="routine-item" data-log-name="Energy"> 
+        <div class="category-card">
+            <div class="category-icon">💡</div> 
+            <span class="category-name">Energy Log (Electricity)</span>
+            <span class="category-chevron">›</span>
+        </div>
+        <div class="routine-details">
+            <div class="routine-details-inner">
+                <div class="log-entry-row">
+                    <label>No. of hours electricity used</label>
+                    <input type="number" class="log-input-field" placeholder="Value">
+                </div>
+                <button class="log-calculate-btn">Calculate</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="routine-item" data-log-name="Consumption"> 
+    <div class="category-card">
+        <div class="category-icon">🛒</div> 
+        <span class="category-name">Consumption Log (Food/Goods)</span>
+        <span class="category-chevron">›</span>
+    </div>
+    <div class="routine-details">
+        <div class="routine-details-inner">
+            
+            <div class="log-entry-row nested-dropdown">
+                <div class="nested-dropdown-trigger" data-dropdown-id="mealOptions">
+                    <span id="mealOptionsLabel">Select meal(s) consumed today</span>
+                    <span class="category-chevron">›</span>
+                </div>
+                <div class="nested-options" id="mealOptions">
+                    <span class="toggle-option">🥩 Meat-based meal</span>
+                    <span class="toggle-option">🥗 Vegetarian meal</span>
+                    <span class="toggle-option">🥬 Vegan meal</span>
+                    <span class="toggle-option">🍚 Rice-heavy meal</span>
+                    <span class="toggle-option">🍞 Bread / bakery</span>
+                    <span class="toggle-option">🍟 Fast food meal</span>
+                    <span class="toggle-option">🥤 Drinks (coffee/tea/milk tea)</span>
+                </div>
+            </div>
+
+            <div class="log-entry-row">
+                <label>No. of total meals consumed today</label>
+                <input type="number" class="log-input-field" placeholder="Value">
+            </div>
+
+            <div class="log-entry-row nested-dropdown">
+                <div class="nested-dropdown-trigger" data-dropdown-id="productOptions">
+                    <span id="productOptionsLabel">Select product(s) purchased today</span>
+                    <span class="category-chevron">›</span>
+                </div>
+                <div class="nested-options" id="productOptions">
+                    <span class="toggle-option">👕 T-shirt</span>
+                    <span class="toggle-option">👟 Shoes</span>
+                    <span class="toggle-option">💻 Gadget / electronics</span>
+                    <span class="toggle-option">🧴 Skincare / cosmetics</span>
+                    <span class="toggle-option">💧 Plastic bottled item</span>
+                    <span class="toggle-option">📦 Packaged goods</span>
+                </div>
+            </div>
+            
+            <div class="log-entry-row">
+                <label>No. of product purchased</label>
+                <input type="number" class="log-input-field" placeholder="Value">
+            </div>
+            <button class="log-calculate-btn">Calculate</button>
+        </div>
+    </div>
+</div>
+    
+    <div class="routine-item" data-log-name="Waste"> 
+        <div class="category-card">
+            <div class="category-icon">🗑️</div> 
+            <span class="category-name">Waste Log</span>
+            <span class="category-chevron">›</span>
+        </div>
+        <div class="routine-details">
+            <div class="routine-details-inner">
+                <div class="log-entry-row">
+                    <label>No. of waste kilograms produced</label>
+                    <input type="number" class="log-input-field" placeholder="Value">
+                </div>
+                <div class="log-entry-row" style="display:flex; align-items:center; gap:10px;">
+                    <input type="checkbox" id="recycledCheck" style="width:18px; height:18px;">
+                    <label for="recycledCheck" style="margin-bottom: 0;">Recycled</label>
+                </div>
+                <button class="log-calculate-btn">Calculate</button>
+            </div>
+        </div>
+    </div>
+</div>  
             </section>
         </main>
         
-        <!-- Hidden navigation menu for mobile -->
-        <nav class="mobile-nav" id="mobileNav">
-            <div class="nav-header">
-                <h3>Menu</h3>
-                <button class="close-menu" id="closeMenu">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <ul class="nav-list">
-                <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="#"><i class="fas fa-chart-line"></i> Dashboard</a></li>
-                <li><a href="#"><i class="fas fa-history"></i> History</a></li>
-                <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
-                <li><a href="#"><i class="fas fa-user"></i> Profile</a></li>
-            </ul>
+        <!-- Bottom Navigation Footer (Mobile) / Left Sidebar (Desktop) -->
+        <nav class="navbar">
+            <a class="nav-icon" href="home.html">
+                <img src="assets/icon/home.png" class="nav-icon-img" alt="Home Icon">
+            </a>
+
+            <a class="nav-icon" href="insights.html">
+                <img src="assets/icon/chart.png" class="nav-icon-img" alt="Chart Icon">
+            </a>
+
+            <a class="nav-icon" href="profile.html">
+                <img src="assets/icon/user.png" class="nav-icon-img" alt="User Icon">
+            </a>
         </nav>
-        
-        <!-- Menu toggle for mobile (hidden on desktop) -->
-        <button class="mobile-menu-toggle" id="mobileMenuToggle">
-            <i class="fas fa-bars"></i>
-        </button>
-        
-        <!-- Overlay for mobile menu -->
-        <div class="overlay" id="overlay"></div>
     </div>
     
-    <script src="home.js"></script>
+    <script src="js/home.js"></script>
 </body>
 </html>
