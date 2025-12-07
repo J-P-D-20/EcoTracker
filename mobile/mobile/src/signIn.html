@@ -6,6 +6,7 @@
     <title>EcoTracker | Sign In</title>
     <link rel="stylesheet" href="css/signIn.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 </head>
 <body>
     <div class="screen-content">
@@ -26,7 +27,7 @@
             </div>
 
             <div class="actions-group">
-                <a class="btn login-btn" href="home.html">Log in</a>
+                <button class="btn login-btn" id="login-btn">Log in</button>
                 <a class="btn signup-btn" href="signUp.html">Sign up</a>
             </div>
 
@@ -34,4 +35,58 @@
         </div>
     </div>
 </body>
+
+  <script>
+    const supabase = window.supabase.createClient(
+      "https://kzrwieaxknzfcufnbqnc.supabase.co",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt6cndpZWF4a256ZmN1Zm5icW5jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE2MjY0NDAsImV4cCI6MjA3NzIwMjQ0MH0.sbqC8XmwT4pWJ97-ISUzHhtgNDkPcSZDWHdWZvqwP30"
+    );
+
+    document.getElementById("login-btn").addEventListener("click", async () => {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+        if (error) {
+          alert("Login failed: " + error.message);
+          return;
+        }
+
+        const user = data.user;
+        const token = data.session.access_token;
+        localStorage.setItem("token", token);
+
+        const pendingProfile = JSON.parse(localStorage.getItem("pendingProfile"));
+        if (pendingProfile) {
+          try {
+            const response = await fetch("http://localhost:3000/register", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+              },
+              body: JSON.stringify(pendingProfile)
+            });
+
+            const result = await response.json();
+            console.log("Profile saved:", result);
+
+            localStorage.removeItem("pendingProfile");
+
+          } catch (err) {
+            console.error("Failed to save profile:", err);
+          }
+        }
+
+        alert("Login successful!");
+        window.location.href = "home.html";
+
+      } catch (err) {
+        console.error(err);
+        alert("Unexpected error during login.");
+      }
+    });
+  </script>
 </html>

@@ -124,7 +124,7 @@ export async function getMinFootprint(supabaseClient,userId) {
       return { result: '0.00', calculation_type: null };
     }
     return {
-      result: parseFloat(data[0].result).toFixed(2),
+     // result: parseFloat(data[0].result).toFixed(2),
       calculation_type: data[0].calculation_type
     };
   } catch (err) {
@@ -147,7 +147,7 @@ export async function getMaxFootprint(supabaseClient,userId) {
       return { result: '0.00', calculation_type: null };
     }
     return {
-      result: parseFloat(data[0].result).toFixed(2),
+      //result: parseFloat(data[0].result).toFixed(2),
       calculation_type: data[0].calculation_type
     };
   } catch (err) {

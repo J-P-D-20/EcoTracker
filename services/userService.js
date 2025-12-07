@@ -1,20 +1,23 @@
 
 import * as db from '../persistence/userRepository.js'
 
-export async function registerUser(data) {
-    const {fname,lname,email,password,city,province} = data;
+export async function registerUser(data,userId) {
+    const {fname,lname,city,province} = data;
 
-    if(!fname || !lname || !email || !password || !city || !province) 
+    if(!fname || !lname || !city || !province) 
         throw new Error("all fields are required")
 
     //const existingEmail = await db.getUserByEmail(email);
 
     //if(existingEmail) throw new Error("Email already registered");
 
-    await db.signUpUser(fname,lname,email,password,city,province)
-
-
+    try{
+         await db.saveUserProfile(userId,fname,lname,city,province)
     return {message : "Registered Successfully"};
+    } catch (err) {
+        console.error({message : err.message});
+        throw new Error("Registration failed", + err.message);
+    }
 
 }
 
