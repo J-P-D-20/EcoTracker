@@ -24,8 +24,8 @@
         <div class="profile-card">
           <img class="avatar" src="assets/imgs/pfp.jpg" alt="Profile Image" />
           <div class="user-info">
-            <h3>Isaac Chou</h3>
-            <p>@isaac_chou</p>
+            <h3 id="name"></h3>
+            <p id="email"></p>
           </div>
         </div>
 
@@ -47,7 +47,7 @@
               <img src="assets/icon/warning.png" class="icon-img" alt="Warning Icon" />
               Most CO₂
             </div>
-            <span class="value">Transport</span>
+            <span id="max" class="value"></span>
           </div>
 
           <div class="row">
@@ -55,7 +55,7 @@
               <img src="assets/icon/leaf.png" class="icon-img" alt="Leaf Icon" />
               Least CO₂
             </div>
-            <span class="value">Food</span>
+            <span id="min" class="value"></span>
           </div>
         </div>
 
@@ -90,4 +90,67 @@
       </div>
     </div>
   </body>
+
+  <script>
+
+    //first name
+    fetch("http://localhost:3000/profile/fname", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        document.getElementById("name").textContent = data.fname;
+      })
+      .catch((error) => {
+        console.error("Error fetching profile data:", error);
+      });
+
+
+      //email
+      fetch("http://localhost:3000/profile/email", {
+        method :"GET",
+        headers :{
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        }
+      }).then((response) => response.json())
+      .then((data) => {
+        document.getElementById("email").textContent = data.email;
+      }).catch((error) => {
+        console.error("Error fetching profile data:", error);
+      });
+
+      //least co2
+      fetch("http://localhost:3000/profile/footprints/min", {
+        method :"GET",
+        headers :{
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        }
+      }).then((response) => response.json())
+      .then((data) => {
+        document.getElementById("min").textContent = data.min.calculation_type + " kg CO₂";
+      }).catch((error) => {
+        console.error("Error fetching profile data:", error);
+      });
+
+    //most co2
+    fetch("http://localhost:3000/profile/footprints/max", {
+      method :"GET",
+      headers :{
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      }
+    }).then((response) => response.json())
+    .then((data) => {
+      document.getElementById("max").textContent = data.max.calculation_type + " kg CO₂";
+    }).catch((error) => {
+      console.error("Error fetching profile data:", error);
+    });
+
+  </script>
 </html>

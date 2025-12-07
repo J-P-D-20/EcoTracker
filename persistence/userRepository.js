@@ -1,35 +1,17 @@
 import { supabase } from './supabaseClient.js';
 
-export async function signUpUser(fname,lname,email,password, city, province) {
-  // Sign up the user in Supabase Auth
-  const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
-    email,
-    password,
-  });
-  if (signUpError) throw signUpError;
 
-  // Sign in immediately to create an active session
-  const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
-  if (signInError) throw signInError;
+export async function saveUserProfile(id, fname, lname, city, province) {
+    const { data, error } = await supabase
+        .from('profiles')
+        .insert([{ id, fname, lname, city, province }])
+        .select();
 
-  const user = signInData.user;
-
-  // Insert profile using active session (RLS will allow)
-  const { data: profileData, error: profileError } = await supabase
-    .from('profiles')
-    .insert([{ id: user.id, fname, lname, city, province }])
-    .select();
-
-  if (profileError) throw profileError;
-
-  return { user,
-          profile: profileData[0],
-          session: signInData.session,
-          access_token: signInData.session.access_token
-    };
+    if (error) {
+       console.error("Supabase insert error:", error);
+      throw error;
+    }
+    return data[0];
 }
 
 // Sign in existing user
@@ -46,8 +28,8 @@ export async function signInUser(email, password) {
 }
 
 // Fetch profile
-export async function getProfile(userId) {
-  const { data, error } = await supabase
+export async function getProfile(supabaseClient,userId) {
+  const { data, error } = await supabaseClient
     .from('profiles')
     .select('*')
     .eq('id', userId)

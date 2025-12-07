@@ -10,7 +10,7 @@ router.post('/',async (req,res) =>{
     try{
         const data = req.body;
         await userService.logIn(data);
-        //console.log(data.email);
+        console.log(data)
         res.status(200).send({message : "Logged in successfully"});
     } catch (err){
         res.status(500).send({message: err.message});

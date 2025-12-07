@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+</head>
+<body>
+  <h1>Dashboard</h1>
+  <p id="user-info">Loading...</p>
+
+  <script>
+    async function loadDashboard() {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        return window.location.href = "index.html";
+      }
+
+      // Call your backend API
+      const res = await fetch("http://localhost:3000/api/me", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      const data = await res.json();
+
+      document.getElementById("user-info").innerText = `Welcome ${data.name} (${data.email})`;
+    }
+
+    loadDashboard();
+  </script>
+</body>
+</html>

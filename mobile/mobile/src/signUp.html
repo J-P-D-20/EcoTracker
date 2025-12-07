@@ -8,6 +8,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="css/signUp.css" />
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     </head>
     <body>
         <div class="registration-page">
@@ -20,36 +21,36 @@
             <div class="form-box">
                 <form>
                     <div class="form-row">
-                        <div class="form-group" id="first-name">
+                        <div class="form-group" >
                             <label>First Name</label>
-                            <input type="text" placeholder="First Name" />
+                            <input type="text" placeholder="First Name" id="first-name" />
                         </div>
 
-                        <div class="form-group" id="last-name">
+                        <div class="form-group" >
                             <label>Last Name</label>
-                            <input type="text" placeholder="Last Name" />
+                            <input type="text" placeholder="Last Name" id="last-name"/>
                         </div>
                     </div>
 
-                    <div class="form-group" id="email">
+                    <div class="form-group" >
                         <label>Email</label>
-                        <input type="email" placeholder="Email" />
+                        <input type="email" placeholder="Email" id="email"/>
                     </div>
 
-                    <div class="form-group" id="password">
+                    <div class="form-group" >
                         <label>Password</label>
-                        <input type="password" placeholder="Password" />
+                        <input type="password" placeholder="Password" id="password"/>
                     </div>
 
-                    <div class="form-row" id="city">
+                    <div class="form-row" >
                         <div class="form-group">
                             <label>City</label>
-                            <input type="text" placeholder="City" />
+                            <input type="text" placeholder="City" id="city"/>
                         </div>
 
-                        <div class="form-group" id="province">
+                        <div class="form-group">
                             <label>Province</label>
-                            <input type="text" placeholder="Province" />
+                            <input type="text" placeholder="Province" id="province"/>
                         </div>
                     </div>
 
@@ -58,9 +59,51 @@
                         <a href="signIn.html" class="auth-switch-link">Click here</a>
                     </div>
 
-                    <a class="register-btn" href="home.html" role="button">Register</a>
+                    <button id="register-btn" class="register-btn" type="button">Register</button>
                 </form>
             </div>
         </div>
     </body>
+
+    <script>
+
+        const supabase = window.supabase.createClient(
+        "https://kzrwieaxknzfcufnbqnc.supabase.co",
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt6cndpZWF4a256ZmN1Zm5icW5jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE2MjY0NDAsImV4cCI6MjA3NzIwMjQ0MH0.sbqC8XmwT4pWJ97-ISUzHhtgNDkPcSZDWHdWZvqwP30"
+    );
+
+
+        document.getElementById("register-btn").addEventListener("click", async function(event) {
+            event.preventDefault();
+           
+            const firstName = document.getElementById("first-name").value;
+            const lastName = document.getElementById("last-name").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const city = document.getElementById("city").value;
+            const province = document.getElementById("province").value;
+
+           
+           try {
+        const { data, error } = await supabase.auth.signUp({ email, password });
+
+        if (error) {
+          alert("Sign up failed: " + error.message);
+          return;
+        }
+
+        // Save profile temporarily in localStorage until user confirms email and logs in
+        localStorage.setItem("pendingProfile", JSON.stringify({ fname : firstName, lname : lastName, city, province }));
+
+        alert("Sign up successful! Check your email to confirm your account.");
+        // Optionally redirect to login page
+        window.location.href = "signIn.html";
+
+      } catch (err) {
+        console.error(err);
+        alert("Unexpected error during signup.");
+      }
+               
+        }); 
+    </script>
 </html>
