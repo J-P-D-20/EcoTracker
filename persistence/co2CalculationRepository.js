@@ -55,9 +55,9 @@ export async function getTotalFootprint(supabaseClient,userId) {
 }
 
 // Update a calculation (if mag add og edit functionality later)
-export async function updateCalculation(calculationId, userId, updates) {
+export async function updateCalculation(supabaseClient, calculationId, userId, updates) {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
       .from('co2_calculations')
       .update(updates)
       .eq('id', calculationId)
@@ -73,9 +73,9 @@ export async function updateCalculation(calculationId, userId, updates) {
 }
 
 // Delete a calculation (if mag add ta og delete functionality)
-export async function deleteCalculation(calculationId, userId) {
+export async function deleteCalculation(supabaseClient, calculationId, userId) {
   try {
-    const { error } = await supabase
+    const { error } = await supabaseClient
       .from('co2_calculations')
       .delete()
       .eq('id', calculationId)
@@ -110,47 +110,57 @@ export async function getAverageFootprint(supabaseClient,userId) {
 }
 
 // Fetch only the smallest result for a user
-export async function getMinFootprint(userId) {
+export async function getMinFootprint(supabaseClient,userId) {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
       .from('co2_calculations')
-      .select('result')
+      .select('result, calculation_type')
       .eq('user_id', userId)
       .order('result', { ascending: true })
       .limit(1);
 
     if (error) throw new Error(`Failed to calculate minimum footprint: ${error.message}`);
-    const raw = data && data.length ? data[0].result : null;
-    return raw === null ? '0.00' : parseFloat(raw).toFixed(2);
+    if (!data || !data.length) {
+      return { result: '0.00', calculation_type: null };
+    }
+    return {
+      result: parseFloat(data[0].result).toFixed(2),
+      calculation_type: data[0].calculation_type
+    };
   } catch (err) {
     throw err;
   }
 }
 
 // Fetch only the largest result for a user
-export async function getMaxFootprint(userId) {
+export async function getMaxFootprint(supabaseClient,userId) {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
       .from('co2_calculations')
-      .select('result')
+      .select('result, calculation_type')
       .eq('user_id', userId)
       .order('result', { ascending: false })
       .limit(1);
 
     if (error) throw new Error(`Failed to calculate maximum footprint: ${error.message}`);
-    const raw = data && data.length ? data[0].result : null;
-    return raw === null ? '0.00' : parseFloat(raw).toFixed(2);
+    if (!data || !data.length) {
+      return { result: '0.00', calculation_type: null };
+    }
+    return {
+      result: parseFloat(data[0].result).toFixed(2),
+      calculation_type: data[0].calculation_type
+    };
   } catch (err) {
     throw err;
   }
 }
 
 // Calculates both min and max CO2 footprint
-export async function getMinAndMaxFootprint(userId) {
+export async function getMinAndMaxFootprint(supabaseClient, userId) {
   try {
     const [min, max] = await Promise.all([
-      getMinFootprint(userId),
-      getMaxFootprint(userId),
+      getMinFootprint(supabaseClient, userId),
+      getMaxFootprint(supabaseClient, userId),
     ]);
 
     return { min, max };

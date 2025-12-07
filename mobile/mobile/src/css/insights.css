@@ -1,3 +1,276 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+:root {
+    --bg-light: #f8f8f8;
+    --bg-white: #ffffff;
+    --bg-blue: #C4EEFF;
+
+    --light-green: #84f78c;
+
+    --text-dark: #1c1c1e;
+    --green: #009951;
+
+    --border-light: #ddd;
+
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background: var(--bg-light);
+    display: flex;
+    justify-content: center; 
+}
+
+.insights-page {
+    width: 100%;
+    max-width: 390px;
+    padding: 20px;
+    padding-bottom: 50px;
+}
+
+/* HEADER */
+.header {
+    position: relative;
+    display: flex;
+    justify-content: center;   
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.header h2 {
+    font-size: 30px;
+    font-weight: 600;
+    text-align: center;
+    width: 100%;
+}
+
+.back-btn {
+    position: absolute;
+    left: 0;
+    background: none;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+/* SUBTITLE */
+.subtitle {
+    font-size: 15px;
+    color: var(--text-dark);
+    margin-bottom: 25px;
+}
+
+/* TITLE */
+.section-title {
+    font-weight: 600;
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+/* STAT CARDS */
+.stats-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.stat-card {
+    background: var(--bg-blue);
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid var(--light-green);
+}
+
+.stat-card h4 {
+    font-size: 16px;
+    font-weight: 600; 
+    margin-bottom: 6px;
+    padding-bottom: 6px;
+    color: var(--text-dark);
+    border-bottom: 1px solid var(--green);
+}
+
+.stat-card .value {
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--text-dark);
+}
+
+/*  NAV BAR */
+.navbar {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 390px; 
+    height: 70px;
+    background: var(--bg-white);
+    border-top: 1px solid var(--border-light);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.nav-icon-img {
+    width: 26px;
+    height: 26px;
+}
+
+/* Desktop responsiveness starting from 768px width */
+@media (min-width: 768px) {
+    .insights-page {
+        max-width: 800px;
+        margin-left: 80px;
+        padding: 30px;
+        padding-bottom: 30px; 
+    }
+
+    .header h2 {
+        font-size: 36px;
+    }
+
+    .back-btn {
+        width: 50px;
+        height: 50px;
+    }
+
+    .back-btn img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .subtitle {
+        font-size: 16px;
+        margin-bottom: 30px;
+    }
+
+    .section-title {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .stat-card {
+        padding: 25px;
+    }
+
+    .stat-card h4 {
+        font-size: 18px;
+    }
+
+    .stat-card .value {
+        font-size: 16px;
+    }
+
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0; 
+        bottom: 0;
+        right: auto; 
+        transform: none;
+        width: 80px;
+        max-width: none;
+        height: 100vh; 
+        background: var(--bg-white);
+        border-top: none;
+        border-right: 1px solid var(--border-light);
+        display: flex;
+        flex-direction: column; 
+        justify-content: space-around;
+        align-items: center;
+        padding: 20px 0;
+        gap: 0; 
+    }
+
+    .nav-icon {
+        width: 60px;
+        height: 60px; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .nav-icon-img {
+        width: 26px;
+        height: 26px;
+    }
+}
+
+/* Further adjustments for very large screens (e.g., 1200px and up) */
+@media (min-width: 1200px) {
+    .insights-page {
+        max-width: 1200px;
+        padding: 40px;
+        margin-left: 100px; 
+    }
+
+    .header h2 {
+        font-size: 42px;
+    }
+
+    .subtitle {
+        font-size: 18px;
+    }
+
+    .section-title {
+        font-size: 26px;
+    }
+
+    .stats-grid {
+        gap: 30px;
+    }
+
+    .stat-card {
+        padding: 30px;
+    }
+
+    .stat-card h4 {
+        font-size: 20px;
+    }
+
+    .stat-card .value {
+        font-size: 18px;
+    }
+
+    .navbar {
+        width: 100px; 
+        padding: 30px 0;
+    }
+
+    .nav-icon {
+        width: 80px;
+        height: 80px;
+    }
+
+    .nav-icon-img {
+        width: 32px;
+        height: 32px;
+    }
+}
+
 #insights-container {
     background-color: #f0f8ff; /* Light blue background */
     display: flex;
