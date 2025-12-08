@@ -72,6 +72,23 @@ body {
     padding: 20px;
 }
 
+@media (max-width: 480px) {
+    body {
+        display: block;
+    }
+
+    .profile-page {
+        max-width: none;
+        padding: 20px 16px 100px;
+    }
+
+    .navbar {
+        max-width: none;
+        left: 0;
+        transform: none;
+    }
+}
+
 /* HEADER */
 .header {
     display: flex;
