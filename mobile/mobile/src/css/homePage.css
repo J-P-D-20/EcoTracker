@@ -1,3 +1,8 @@
+@media (max-width: 767px) {
+    .container {
+        border-radius: 0;
+    }
+}
 /* homePage.css */
 
 * {
@@ -11,22 +16,21 @@ body {
     background: linear-gradient(180deg, #c4eeff 0%, #d4f5e0 50%, #e8f5e0 100%);
     color: #2c2c2c;
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin: 0;
+    padding: 0;
+    display: block;
 }
 
 .container {
     width: 100%;
-    max-width: 412px;
-    min-height: 892px;
+    max-width: 428px;
+    min-height: 100vh;
     background: linear-gradient(180deg, #c4eeff 0%, #d4f5e0 50%, #e8f5e0 100%);
-    border-radius: 20px;
+    border-radius: 24px;
     overflow: hidden;
     position: relative;
-    padding: 20px;
-    padding-bottom: 20px;
-    margin: 20px;
+    padding: 18px 20px 96px;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
 }
@@ -591,9 +595,11 @@ input[type="checkbox"]:checked::after {
 
 /* NAVBAR - Mobile Bottom / Desktop Left Sidebar */
 .navbar {
-    position: sticky;
+    position: fixed;
+    left: 5%;
+    right: 5%;
     bottom: 0;
-    width: 100%;
+    width: auto;
     height: 70px;
     background: #e8f5e0;
     border-top: 2px solid #2c2c2c;
@@ -602,7 +608,6 @@ input[type="checkbox"]:checked::after {
     align-items: center;
     gap: 40px;
     z-index: 998;
-    margin-top: auto;
 }
 
 .nav-icon {
@@ -630,8 +635,9 @@ input[type="checkbox"]:checked::after {
 @media (min-width: 768px) {
     body {
         display: flex;
-        justify-content: flex-start;
+        justify-content: center;
         align-items: flex-start;
+        padding: 40px 24px 80px 110px;
         background: linear-gradient(180deg, #c4eeff 0%, #d4f5e0 50%, #e8f5e0 100%);
     }
 
@@ -644,16 +650,12 @@ input[type="checkbox"]:checked::after {
     }
 
     .container {
-        max-width: 100px;
-        min-height: 100vh;
-        margin: 0;
-        margin-left: 80px;
-        border-radius: 0;
-        padding: 30px;
-        padding-bottom: 30px;
+        max-width: 1060px;
+        min-height: auto;
+        margin: 0 auto;
+        border-radius: 24px;
+        padding: 32px 32px 72px;
         background: linear-gradient(180deg, #c4eeff 0%, #d4f5e0 50%, #e8f5e0 100%);
-        display: flex;
-        flex-direction: column;
     }
 
     .header {
@@ -827,8 +829,8 @@ input[type="checkbox"]:checked::after {
 @media (min-width: 1200px) {
     .container {
         max-width: 1200px;
-        padding: 40px;
-        margin-left: 100px;
+        padding: 40px 48px 96px;
+        margin: 0 auto;
     }
 
     .page-title {

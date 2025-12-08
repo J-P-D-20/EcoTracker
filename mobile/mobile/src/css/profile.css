@@ -88,23 +88,6 @@ body {
     min-height: 100vh;
 }
 
-@media (max-width: 480px) {
-    body {
-        display: block;
-    }
-
-    .profile-page {
-        max-width: none;
-        padding: 20px 16px 100px;
-    }
-
-    .navbar {
-        max-width: none;
-        left: 0;
-        transform: none;
-    }
-}
-
 /* HEADER */
 .header {
     display: flex;
@@ -136,52 +119,52 @@ body {
 
 /* SWITCH */
 .switch {
-  font-size: 13px;
-  position: relative;
-  display: inline-block;
-  width: 3.5em;
-  height: 2em;
+    font-size: 13px;
+    position: relative;
+    display: inline-block;
+    width: 3.5em;
+    height: 2em;
 }
 
 .switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
+    opacity: 0;
+    width: 0;
+    height: 0;
 }
 
 .slider {
-  --background: var(--light-green);
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: var(--background);
-  transition: .5s;
-  border-radius: 30px;
+    --background: var(--light-green);
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--background);
+    transition: .5s;
+    border-radius: 30px;
 }
 
 .slider:before {
-  position: absolute;
-  content: "";
-  height: 1.4em;
-  width: 1.4em;
-  border-radius: 50%;
-  left: 10%;
-  bottom: 15%;
-  box-shadow: inset 8px -4px 0px 0px #ffffff;
-  background: var(--background);
-  transition: .5s;
+    position: absolute;
+    content: "";
+    height: 1.4em;
+    width: 1.4em;
+    border-radius: 50%;
+    left: 10%;
+    bottom: 15%;
+    box-shadow: inset 8px -4px 0px 0px #ffffff;
+    background: var(--background);
+    transition: .5s;
 }
 
 input:checked + .slider {
-  background-color: var(--light-green);
+    background-color: var(--light-green);
 }
 
 input:checked + .slider:before {
-  transform: translateX(100%);
-  box-shadow: inset 15px -4px 0px 15px #ffffff;
+    transform: translateX(100%);
+    box-shadow: inset 15px -4px 0px 15px #ffffff;
 }
 
 /* PROFILE CARD */
@@ -287,17 +270,34 @@ input:checked + .slider:before {
 }
 
 /* NAVBAR - Mobile Bottom / Desktop Left Sidebar */
+
+
 .navbar {
     width: 100%;
     height: 70px;
-    background: #ffffff;
-    border-top: 1px solid #e0e0e0;
+    background: transparent;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
+    gap: 40px;
     z-index: 998;
     margin-top: auto;
+    position: relative;
+    padding-top: 16px;
+    padding-bottom: 15px;
 }
+
+.navbar::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 5%;
+    right: 5%;
+    height: 2px;
+    background: #1b1a1a;
+    border-radius: 2px;
+}
+
 
 .nav-icon {
     width: 50px;
@@ -308,16 +308,46 @@ input:checked + .slider:before {
     cursor: pointer;
     text-decoration: none;
     transition: transform 0.2s;
-    flex: 1;
 }
 
 .nav-icon:hover {
     transform: scale(1.1);
 }
 
+
 .nav-icon-img {
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
+}
+
+@media (max-width: 480px) {
+    body {
+        display: block;
+        margin: 0;
+        padding: 0;
+    }
+
+    .active-page {
+        width: 100%;
+        height: auto;
+        padding: 0 16px 20px;
+    }
+
+    .profile-page {
+        max-width: none;
+        padding: 20px 0 110px;
+        min-height: auto;
+    }
+
+    .navbar {
+        max-width: none;
+        left: 0;
+        right: 0;
+        transform: none;
+        border-radius: 0;
+        position: fixed;
+        bottom: 0;
+    }
 }
 
 /* DARK MODE */
@@ -415,23 +445,23 @@ input:checked + .slider:before {
     .navbar {
         position: fixed;
         top: 0;
-        left: 0; 
+        left: 0;
         bottom: 0;
-        right: auto; 
+        right: auto;
         transform: none;
         width: 80px;
         max-width: none;
-        height: 100vh; 
-        background: #ffffff; /* Consistent with homePage.css */
+        height: 100vh;
+        background: #ffffff;
         border-top: none;
-        border-right: 1px solid #ddd; /* Consistent with homePage.css */
+        border-right: 1px solid #ddd;
         display: flex;
-        flex-direction: column; 
+        flex-direction: column;
         justify-content: center;
         align-items: center;
-        padding: 40px 20px;
-        gap: 20px;
-        margin-top: auto;
+        padding: 20px 0;
+        gap: 40px;
+        margin-top: 0;
     }
 
     .nav-icon {
