@@ -1,3 +1,10 @@
+function formatDate(dateString) {
+  return new Date(dateString).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+}
 
 // Saves a new calculation to the DB 
 export async function saveCalculation(supabaseClient,userId, calculationType, inputs, result) {
@@ -114,18 +121,19 @@ export async function getMinFootprint(supabaseClient,userId) {
   try {
     const { data, error } = await supabaseClient
       .from('co2_calculations')
-      .select('result, calculation_type')
+      .select('result, calculation_type, created_at')
       .eq('user_id', userId)
       .order('result', { ascending: true })
       .limit(1);
 
     if (error) throw new Error(`Failed to calculate minimum footprint: ${error.message}`);
     if (!data || !data.length) {
-      return { result: '0.00', calculation_type: null };
+      return { result: '0.00', calculation_type: null, created_at: null };
     }
     return {
      // result: parseFloat(data[0].result).toFixed(2),
-      calculation_type: data[0].calculation_type
+      calculation_type: data[0].calculation_type,
+      created_at: formatDate(data[0].created_at)
     };
   } catch (err) {
     throw err;
@@ -137,18 +145,19 @@ export async function getMaxFootprint(supabaseClient,userId) {
   try {
     const { data, error } = await supabaseClient
       .from('co2_calculations')
-      .select('result, calculation_type')
+      .select('result, calculation_type, created_at')
       .eq('user_id', userId)
       .order('result', { ascending: false })
       .limit(1);
 
     if (error) throw new Error(`Failed to calculate maximum footprint: ${error.message}`);
     if (!data || !data.length) {
-      return { result: '0.00', calculation_type: null };
+      return { result: '0.00', calculation_type: null, created_at: null };
     }
     return {
       //result: parseFloat(data[0].result).toFixed(2),
-      calculation_type: data[0].calculation_type
+      calculation_type: data[0].calculation_type,
+      created_at: formatDate(data[0].created_at)
     };
   } catch (err) {
     throw err;
