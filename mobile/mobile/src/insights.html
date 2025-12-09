@@ -106,36 +106,35 @@
     });
 
     //fetch min co2
-    fetch("http://localhost:3000/co2/footprints/min", {
-        method: "GET",
+    fetch("http://localhost:3000/co2/lowestFootprintDay",{
+        method : "GET",
         headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
+            "Content-Type" : "application/json",
+            authorization : `Bearer ${localStorage.getItem("token")}`
+        }
     })
-    .then((response) => response.json())
-    .then((data) => {
-        document.getElementById("min-date").textContent = data.min.created_at;
-        document.getElementById("min-carbon").textContent = data.min.result + " kg CO₂";
-    }).catch((error) => {
-        console.error("Error fetching minimum CO2 data:", error);
+    .then(response => response.json())
+    .then(data =>{
+            document.getElementById("min-date").textContent = data.date;
+            document.getElementById("min-carbon").textContent = data.footprint + "kg CO₂";
+    }).catch(error => {
+        console.error("Error fetching min CO2 data:", error);
     });
 
 
-    //fetch max co2
-    fetch("http://localhost:3000/co2/footprints/max", {
-        method: "GET",
+    fetch("http://localhost:3000/co2/highestFootprintDay",{
+        method : "GET",
         headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
+            "Content-Type" : "application/json",
+            authorization : `Bearer ${localStorage.getItem("token")}`
+        }
     })
-    .then((response) => response.json())
-    .then((data) => {
-        document.getElementById("max-date").textContent = data.max.created_at;
-        document.getElementById("max-carbon").textContent = data.max.result + "kg CO₂";
-    }).catch((error) => {   
-        console.error("Error fetching maximum CO2 data:", error);
+    .then(response => response.json())
+    .then(data =>{ 
+            document.getElementById("max-date").textContent = data.date;
+            document.getElementById("max-carbon").textContent = data.footprint + "kg CO₂";
+    }).catch(error => {
+        console.error("Error fetching max CO2 data:", error);
     });
 </script>
 </html>

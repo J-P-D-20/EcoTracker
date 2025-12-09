@@ -265,3 +265,36 @@ export async function getLowestFootprintDay(supabaseClient, userId) {
     throw err;
   }
 }
+
+
+export async function getAccumulatedPercentage(supabaseClient, userId, dailyLimit = 50) {
+  try {
+    const { data, error } = await supabaseClient
+      .from("co2_calculations")
+      .select("result, created_at")
+      .eq("user_id", userId);
+
+    if (error) throw new Error(`Failed to fetch calculations: ${error.message}`);
+    if (!data || data.length === 0) return 0;
+
+    // Sum today's results
+    const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
+    let totalToday = 0;
+
+    for (const entry of data) {
+      const day = entry.created_at.split("T")[0];
+      if (day === today) {
+        totalToday += parseFloat(entry.result) || 0;
+      }
+    }
+
+    // Calculate percentage of daily limit
+    const percentage = Math.min((totalToday / dailyLimit) * 100, 100).toFixed(2);
+
+    return percentage;
+
+  } catch (err) {
+    throw err;
+  }
+}
+

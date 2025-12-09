@@ -70,16 +70,17 @@ export async function energyCo2Calculation(supabaseClient,userID,usage,hours){
 
 
 
-export async function consumptionCo2Calculation(supabaseClient,userID,category,type,quantity){
-    try{
-        let result;
+export async function consumptionCo2Calculation(supabaseClient, userID, logs) {
+    try {
+        let totalResult = 0;
+
         const foodCategory = [
             ['Heavy Meat', 5.0],
             ['Mixed', 3.0],
             ['Vegetarian', 2.0],
             ['Vegan', 1.5]
-        ]
-        const goodsCatgory = [
+        ];
+        const goodsCategory = [
             ['Clothing', 25],
             ['Electronics', 100],
             ['Furniture', 200],
@@ -87,25 +88,39 @@ export async function consumptionCo2Calculation(supabaseClient,userID,category,t
             ['Miscellaneous', 5]
         ];
 
-        if(category === 'Food'){
-            const [,emission] = foodCategory.find(([t]) => t === type)
-            result = emission * quantity
-        }else if(category === 'Good'){
-            const [,emission] = goodsCatgory.find(([t]) => t === type)
-            result = emission * quantity
-        }
-        
-        const savedData = await db.saveCalculation(
-            supabaseClient,
-            userID,
-            'consumption',{
-                category: category,
-                type: type,
-                quantity: quantity
-            },
-            result);
+        // Ensure logs is always an array
+        if (!Array.isArray(logs)) logs = [logs];
 
-        return result;
+        for (const log of logs) {
+            const { category, type, quantity } = log;
+            let result = 0;
+
+            if (category === 'Food') {
+                const found = foodCategory.find(([t]) => t === type);
+                if (!found) throw new Error(`Invalid Food type: ${type}`);
+                result = found[1] * quantity;
+            } else if (category === 'Goods') {
+                const found = goodsCategory.find(([t]) => t === type);
+                if (!found) throw new Error(`Invalid Goods type: ${type}`);
+                result = found[1] * quantity;
+            } else {
+                throw new Error(`Invalid category: ${category}`);
+            }
+
+            // Save each calculation to DB
+            await db.saveCalculation(
+                supabaseClient,
+                userID,
+                'consumption',
+                { category, type, quantity },
+                result
+            );
+
+            totalResult += result;
+        }
+
+        return totalResult;
+
     } catch (err) {
         throw err;
     }

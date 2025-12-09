@@ -2,6 +2,7 @@ import express from 'express';
 import * as calculation from '../services/co2CalculationService.js';
 import { getAverageFootprint, getTotalFootprint,getMinFootprint,getMaxFootprint } from '../persistence/co2CalculationRepository.js';
 import {AuthenticateToken }from '../middleware/authMiddleware.js';
+import { getLowestFootprintDay,getHighestFootprintDay,getAccumulatedPercentage } from '../persistence/co2CalculationRepository.js';
 
 const router = express.Router();
 
@@ -9,17 +10,19 @@ const router = express.Router();
 //transportation route
 router.post('/transportation',AuthenticateToken, async (req , res) => {
     try{
-    const userid =  req.user.id
+    const userId =  req.user.id
     const {transportation, distance} = req.body;
 
     const result = await calculation.transportationCo2Calculation(
         req.supabase,
-        userid,
-        transportation,
+        userId,
+        transportation, 
         distance
     );
+
+    const percentage = await getAccumulatedPercentage(req.supabase, userId);
     
-    res.json({result :`${result.toFixed(2)} kg`});
+    res.json({result :`${result.toFixed(2)}`, percentage : `${percentage}`});
     } catch (err){
         res.status(500).json({message : err.message})
     }
@@ -33,7 +36,7 @@ router.post('/energy', AuthenticateToken ,async (req,res) =>{
         
         const result = await calculation.energyCo2Calculation(req.supabase,userid,usage,hours);
 
-        res.json({result :`${result} kg`});
+        res.json({result :`${result}`});
     } catch(err){
         res.status(500).json({message : err.message})
 
@@ -44,11 +47,16 @@ router.post('/energy', AuthenticateToken ,async (req,res) =>{
 router.post('/consumption',AuthenticateToken, async (req,res) => {
     try {
         const userid = req.user.id;
-        const {category,type,quantity} = req.body;
-        
-        const result = await calculation.consumptionCo2Calculation(req.supabase,userid,category,type,quantity)
 
-         res.json({result :`${result} kg`});
+        const { logs } = req.body; // <-- get logs array from request body
+        
+        if (!logs || !Array.isArray(logs) || logs.length === 0) {
+            return res.status(400).json({ message: "No logs provided" });
+        }
+        
+        const result = await calculation.consumptionCo2Calculation(req.supabase, userid, logs)
+
+         res.json({result :`${result}`});
     } catch(err) {
         res.status(500).json({message : err.message})
     }
@@ -62,7 +70,7 @@ router.post('/waste',AuthenticateToken, async (req,res) => {
         
         const result = await calculation.wasteCo2Calculation(req.supabase,userid,waste,recycled);
 
-         res.json({result :`${result} kg`});
+         res.json({result :`${result}`});
     } catch(err) {
         res.status(500).json({message : err.message})
     }
@@ -91,27 +99,34 @@ router.get('/total',AuthenticateToken, async (req,res) => {
 });
 
  
-router.get('/footprints/min', AuthenticateToken, async (req, res) => {
-  try {                 
+router.get('/lowestFootprintDay', AuthenticateToken, async (req,res) => {
+  try {
     const userId = req.user.id;
-    const min = await getMinFootprint(req.supabase, userId);
-    res.json({ min });
+    const result = await getLowestFootprintDay(req.supabase, userId);
+    res.json({ date: result.date, footprint: result.total });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
 
-
-
-router.get('/footprints/max', AuthenticateToken, async (req, res) => {
-  try {                 
-    const userId = req.user.id; 
-    const max = await getMaxFootprint(req.supabase, userId);
-    res.json({ max });
+router.get('/highestFootprintDay', AuthenticateToken, async (req,res) => {
+  try {
+    const userId = req.user.id;
+    const result = await getHighestFootprintDay(req.supabase, userId);
+    res.json({ date: result.date, footprint: result.total });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
 
+router.get('/percentage', AuthenticateToken, async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const percentage = await getAccumulatedPercentage(req.supabase, userId);
+    res.json({ percentage });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
 
 export default router;

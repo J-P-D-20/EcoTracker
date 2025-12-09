@@ -13,7 +13,7 @@ const router = express.Router();
 router.get('/',  AuthenticateToken, async (req , res) =>{
    
     try{
-        const profile = await getProfile(req.user.id);
+        const profile = await getProfile(req.supabase, req.user.id);
 
         if (!profile?.city) {
             return res.status(400).json({ error: "City not found in user profile" });
@@ -22,7 +22,7 @@ router.get('/',  AuthenticateToken, async (req , res) =>{
         const data = await getWeatherData(profile.city);
         res.json(data)
     } catch(err){
-        res.status(500).json({error : "Internal Server Erorr"})
+        res.status(500).json({error : err.message});
     }
 
 })

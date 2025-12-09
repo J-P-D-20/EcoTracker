@@ -18,7 +18,7 @@
         <main class="main-content">
             <section class="temperature-section">
                 <div class="temperature-display">
-                    <h2 class="temperature">27℃</h2>
+                    <h2 id="temp" class="temperature">27℃</h2>
                 </div>
             </section>
             
@@ -28,8 +28,8 @@
                 </div>
                 <div class="air-quality-content">
                     <div class="air-quality-left">
-                        <div class="air-quality-value">53</div>
-                        <div class="air-quality-status">Moderate</div>
+                        <div id="airQuality" class="air-quality-value">53</div>
+                        <div id="airStatus" class="air-quality-status">Moderate</div>
                     </div>
                     <div class="air-quality-icon-container">
                         <img src="assets/imgs/airQuality.png" alt="Air Quality" class="air-quality-icon">
@@ -38,7 +38,7 @@
             </section>
             
             <section class="co2-section">
-                <div class="co2-value">0%</div>
+                <div  id="percent" class="co2-value">0%</div>
                 <div class="co2-label">CO2 emitted</div>
             </section>
             
@@ -63,19 +63,24 @@
                     </div>
                     
                     <div class="nested-options" id="transportMode">
-                        <div class="nested-option" data-value="Walk">🚶‍♂️ Walk</div>
-                        <div class="nested-option" data-value="Motorcycle">🏍️ Motorcycle</div>
-                        <div class="nested-option" data-value="Car">🚗 Car</div>
-                        <div class="nested-option" data-value="Bus">🚌 Bus</div>
-                        <div class="nested-option" data-value="Electric Bus">⚡🚌 Electric Bus</div>
-                        <div class="nested-option" data-value="Train">🚆 Train</div>
-                    </div>
+                      <div class="nested-option" data-value="Small Car">Small Car</div>
+                      <div class="nested-option" data-value="Medium Car">Medium Car</div>
+                      <div class="nested-option" data-value="Large Car">Large Car</div>
+                      <div class="nested-option" data-value="Diesel Car">Diesel Car</div>
+                      <div class="nested-option" data-value="Hybrid Car">Hybrid Car</div>
+                      <div class="nested-option" data-value="Electric Car">Electric Car</div>
+                      <div class="nested-option" data-value="MotorCycle">Motorcycle</div>
+                      <div class="nested-option" data-value="Bus">Bus</div>
+                      <div class="nested-option" data-value="Jeepney">Jeepney</div>
+                      <div class="nested-option" data-value="Train">Train</div>
+                  </div>
+
                 </div>
                 <div class="log-entry-row">
                     <label>No. of kilometers traveled</label>
-                    <input type="number" class="log-input-field" placeholder="Value">
+                    <input type="number" class="log-input-field" id="distance" placeholder="Value">
                 </div>
-                <button class="log-calculate-btn">Calculate</button>
+                <button class="log-calculate-btn" id="transportation">Calculate</button>
             </div>
         </div>
     </div>
@@ -88,11 +93,25 @@
         </div>
         <div class="routine-details">
             <div class="routine-details-inner">
-                <div class="log-entry-row">
-                    <label>No. of hours electricity used</label>
-                    <input type="number" class="log-input-field" placeholder="Value">
-                </div>
-                <button class="log-calculate-btn">Calculate</button>
+               <div class="log-entry-row nested-dropdown">
+    <div class="nested-dropdown-trigger" data-dropdown-id="energyUsage">
+        <span id="energyUsageLabel">Select Usage Type</span>
+        <span class="category-chevron">›</span>
+    </div>
+
+    <div class="nested-options" id="energyUsage">
+        <div class="nested-option" data-value="Light Usage">Light Usage</div>
+        <div class="nested-option" data-value="Average Usage">Average Usage</div>
+        <div class="nested-option" data-value="Heavy Usage">Heavy Usage</div>
+    </div>
+</div>
+
+            <div class="log-entry-row">
+                <label>Number of hours used</label>
+                <input type="number" class="log-input-field" id="energyHours" placeholder="Enter hours">
+            </div>
+
+                <button class="log-calculate-btn" id="energy">Calculate</button>
             </div>
         </div>
     </div>
@@ -112,14 +131,12 @@
                     <span class="category-chevron">›</span>
                 </div>
                 <div class="nested-options" id="mealOptions">
-                    <span class="toggle-option">🥩 Meat-based meal</span>
-                    <span class="toggle-option">🥗 Vegetarian meal</span>
-                    <span class="toggle-option">🥬 Vegan meal</span>
-                    <span class="toggle-option">🍚 Rice-heavy meal</span>
-                    <span class="toggle-option">🍞 Bread / bakery</span>
-                    <span class="toggle-option">🍟 Fast food meal</span>
-                    <span class="toggle-option">🥤 Drinks (coffee/tea/milk tea)</span>
-                </div>
+                <div class="nested-option" data-value="Heavy Meat">Heavy Meat</div>
+                <div class="nested-option" data-value="Mixed">Mixed</div>
+                <div class="nested-option" data-value="Vegetarian">Vegetarian</div>
+                <div class="nested-option" data-value="Vegan">Vegan</div>
+            </div>
+
             </div>
 
             <div class="log-entry-row">
@@ -132,14 +149,14 @@
                     <span id="productOptionsLabel">Select product(s) purchased today</span>
                     <span class="category-chevron">›</span>
                 </div>
-                <div class="nested-options" id="productOptions">
-                    <span class="toggle-option">👕 T-shirt</span>
-                    <span class="toggle-option">👟 Shoes</span>
-                    <span class="toggle-option">💻 Gadget / electronics</span>
-                    <span class="toggle-option">🧴 Skincare / cosmetics</span>
-                    <span class="toggle-option">💧 Plastic bottled item</span>
-                    <span class="toggle-option">📦 Packaged goods</span>
-                </div>
+               <div class="nested-options" id="productOptions">
+                <div class="nested-option" data-value="Clothing">Clothing</div>
+                <div class="nested-option" data-value="Electronics">Electronics</div>
+                <div class="nested-option" data-value="Furniture">Furniture</div>
+                <div class="nested-option" data-value="Groceries">Groceries</div>
+                <div class="nested-option" data-value="Miscellaneous">Miscellaneous</div>
+            </div>
+
             </div>
             
             <div class="log-entry-row">
@@ -192,5 +209,6 @@
     </div>
     
     <script src="js/home.js"></script>
+    <script src="js/calculation.js"></script>
 </body>
 </html>
