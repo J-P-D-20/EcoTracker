@@ -26,15 +26,20 @@ body {
     justify-content: center;
     align-items: center;
     background: var(--bg-white);
-    padding: 40px 20px;
-    overflow: hidden;
+    padding: 20px 20px;
+    overflow-y: auto;
 }
 
 .registration-page {
     width: 100%;
-    max-width: 800px;
+    max-width: 500px;
     margin: 0 auto;
-    padding: 25px;
+    padding: 30px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* constrain height and allow internal scrolling */
+    max-height: calc(100vh - 40px);
 }
 
 /* Logo */
@@ -60,9 +65,12 @@ body {
 
 /* Form Box */
 .form-box {
-    padding: 25px;
+    width: 110%;
+    max-width: 400px;
+    padding: 20px;
     border-radius: 12px;
     border: 1px solid var(--green);
+    background-color: var(--bg-white);
 }
 
 form {
@@ -81,12 +89,12 @@ form label {
 /* Input Fields */
 form input {
     width: 100%;
-    padding: 12px;
+    padding: 10px;
     border-radius: 10px;
     border: 1px solid var(--green);
     outline: none;
     font-size: 14px;
-    margin-bottom: 18px;
+    margin-bottom: 15px;
 }
 
 form input::placeholder {
@@ -119,7 +127,7 @@ form input::placeholder {
 /* Button */
 .register-btn {
     width: 100%;
-    padding: 14px;
+    padding: 12px;
     margin-top: 5px;
     border: none;
     border-radius: 10px;
@@ -142,8 +150,10 @@ form input::placeholder {
 @media (min-width: 768px) {
 
     .registration-page {
-        max-width: 450px; 
-        margin: 10px auto;
+        max-width: 550px; 
+        margin: auto;
+        padding: 40px 30px;
+        height: fit-content;
     }
 
     .logo {

@@ -1,24 +1,862 @@
-#home-container {
-    background-color: #f0fff0; /* Light green background */
+@media (max-width: 767px) {
+    .container {
+        border-radius: 0;
+    }
+}
+/* homePage.css */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: linear-gradient(180deg, #c4eeff 0%, #d4f5e0 50%, #e8f5e0 100%);
+    color: #2c2c2c;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: block;
+}
+
+.container {
+    width: 100%;
+    max-width: 428px;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #c4eeff 0%, #d4f5e0 50%, #e8f5e0 100%);
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    padding: 18px 20px 96px;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
+}
+
+/* Header Styles */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-top: 10px;
+}
+
+.page-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #2c2c2c;
+}
+
+.earth-icon-container {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.earth-icon {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+/* Temperature and Air Quality Side by Side */
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    grid-template-areas: "temp airqual"
+                         "co2 co2"
+                         "routine routine";
+}
+
+.temperature-section {
+    grid-area: temp;
+    background: transparent;
+    border-radius: 0;
+    padding: 0;
+    margin-bottom: 0;
+    text-align: left;
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.temperature-display {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.temperature-display::before {
+    content: '☀️';
+    font-size: 40px;
+    margin-right: 5px;
+}
+
+.temperature {
+    font-size: 48px;
+    font-weight: 700;
+    color: #2c2c2c;
+    text-shadow: none;
+    margin: 0;
+}
+
+/* Air Quality Section */
+.air-quality-section {
+    grid-area: airqual;
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 0;
+    border: 1px solid #a8a8a8;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    gap: 5px;
+}
+
+.section-title {
+    font-size: 14px;
+    font-weight: 300;
+    text-align: center;
+    color: #666;
+    flex: 1;
+}
+
+.routine-section .section-title {
+    font-size: 25px;
+    font-weight: 800;
+    color: #2c2c2c;
+}
+
+.air-quality-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 5px;
+}
+
+.air-quality-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.air-quality-icon-container {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.air-quality-icon {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+.air-quality-value {
+    font-size: 44px;
+    font-weight: 700;
+    color: #8CDC63FF;
+    line-height: 1;
+    margin-bottom: 3px;
+}
+
+.air-quality-status {
+    font-size: 13px;
+    color: #2c2c2c;
+    font-weight: 500;
+}
+
+/* CO2 Section */
+.co2-section {
+    grid-area: co2;
+    padding: 35px 25px;
+    margin-top: 10px;
+    text-align: center;
+    position: relative;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow:visible;
+}
+
+.co2-section::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    width: 220px;
+    height: 180px;
+    background-color: #86D8F8;
+    border-radius: 50%;
+    opacity: 0.8;
+    z-index: 1;
+}
+
+.co2-section::after {
+    content: '';
+    position: absolute;
+    bottom: -30px;
+    right: 10px;
+    width: 220px;
+    height: 180px;
+    background-color: #B4F886;
+    border-radius: 50%;
+    opacity: 0.8;
+    z-index: 1;
+}
+
+.co2-value {
+    font-size: 160px;
+    font-weight: 400;
+    font-style: italic;
+    color: #2c2c2c;
+    line-height: 0.9;
+    margin-bottom: 0;
+    position: relative;
+    z-index: 2;
+}
+
+.co2-label {
+    font-size: 17px;
+    color: #2c2c2c;
+    font-weight: 600;
+    position: relative;
+    z-index: 2;
+}
+
+/* Routine Section */
+.routine-section {
+    grid-area: routine;
+    background-color: #f5f5f5;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e0e0;
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+
+.routine-description {
+    color: #666;
+    margin-bottom: 15px;
+    line-height: 1.4;
+    font-size: 12px;
+    text-align: center;
+}
+
+.routine-categories {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.category-card {
+    background-color: transparent;
+    border-radius: 0;
+    padding: 18px 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: none;
+    transition: background-color 0.2s;
+    cursor: pointer;
+    border: none;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.category-card:last-child {
+    border-bottom: none;
+}
+
+.category-card:hover {
+    transform: none;
+    box-shadow: none;
+    background-color: #f1f5f9;
+}
+
+.category-icon {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.leaf-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+.category-name {
+    font-size: 16px;
+    font-weight: 500;
+    color: #2c2c2c;
+    text-align: left;
+    flex-grow: 1;
+}
+
+.category-chevron {
+    font-size: 18px;
+    color: #718096;
+    margin-left: 10px;
+    flex-shrink: 0;
+}
+
+/* --- NESTED DROPDOWN STYLES (for Transportation) --- */
+
+/* The wrapper for each routine item (log + details) */
+.routine-item {
+    /* The border will now be handled by the wrapper */
+    border-bottom: 1px solid #e2e8f0; 
+    transition: all 0.3s ease;
+}
+
+/* Remove the border from the last item wrapper */
+.routine-categories .routine-item:last-child {
+    border-bottom: none;
+}
+
+/* Base style for the clickable card (The existing .category-card style remains) */
+.category-card {
+    /* Keeping the existing styles but ensuring no bottom border for expansion */
+    border-bottom: none !important; 
+}
+
+/* The hidden details panel */
+.routine-details {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 20px;
+    /* Using variables from profile/insights for consistency */
+    background-color: var(--bg-white, #ffffff); 
+    border-radius: 0 0 10px 10px;
+    transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
+}
+
+/* Inner padding for the content inside the details panel */
+.routine-details-inner {
+    padding: 15px 0 20px 0;
+    border-top: 1px solid var(--border-soft, #eee); /* Soft separator line */
+}
+
+/* Styles for the inputs and buttons based on the mock-up */
+.log-entry-row {
+    margin-bottom: 15px;
+    background-color: var(--light-green);
+}
+
+.log-entry-row label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-dark, #2c2c2c);
+    display: block;
+    margin-bottom: 5px;
+}
+
+.log-input-field {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #a8a8a8;
+    border-radius: 8px;
+    font-size: 16px;
+    color: var(--text-medium, #555);
+    background-color: #e6f7ff; /* Light blue background for inputs (like the mock-up) */
+}
+
+.log-input-select {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #a8a8a8;
+    border-radius: 8px;
+    font-size: 16px;
+    color: var(--text-dark, #2c2c2c);
+    background-color: var(--light-green, #84f78c); /* Green background for Select (like the mock-up) */
+    cursor: pointer;
+}
+
+.log-calculate-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    background-color: var(--green, #34a853); 
+    color: var(--bg-white, #ffffff);
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.log-calculate-btn:hover {
+    transition: 0.3s ease;
+    color: #ffffff; /* Slightly darker green */
+}
+
+/* --- CHECKBOX STYLING (for Waste) --- */
+input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #a8a8a8;
+    border-radius: 4px;
+    background-color: #ffffff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+input[type="checkbox"]:hover {
+    border-color: #34a853;
+}
+
+input[type="checkbox"]:checked {
+    background-color: #34a853;
+    border-color: #34a853;
+}
+
+input[type="checkbox"]:checked::after {
+    content: '✓';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+}
+
+/* --- ACTIVE STATE TOGGLED BY JAVASCRIPT --- */
+
+.routine-item.active .routine-details {
+    /* Set a generous max-height for all content to fit */
+    max-height: 400px; 
+    padding: 0 20px;
+}
+
+/* Highlight the active card */
+.routine-item.active .category-card {
+    background-color: #f1f5f9; 
+    border-radius: 10px 10px 0 0;
+}
+
+.nested-dropdown-trigger {
+    background-color: #e6f7ff; /* Light blue input background */
+    border: 1px solid #a8a8a8;
+    border-radius: 8px;
+    padding: 10px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 5px;
+    font-size: 16px;
+    color: var(--text-dark);
+}
+
+/* Container for the nested options list */
+.nested-options {
+    max-height: 0;
+    overflow: hidden;
+    transition: 0.3s ease-in-out;
+    padding: 0 10px;
+    border-left: 2px solid var(--green); 
+    margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+}
+
+/* Open state for the nested dropdown */
+.nested-dropdown.open .nested-options {
+    max-height: 300px; /* Set a value larger than the max height of the list */
+    padding: 5px 10px;
+}
+
+.nested-option {
+    padding: 8px 5px;
+    font-size: 14px;
+    color: var(--text-medium);
+    cursor: pointer;
+    border-bottom: 1px dashed var(--border-soft);
+}
+
+.nested-option:last-child {
+    border-bottom: none;
+}
+
+
+/* --- TOGGLE GROUP STYLES (for Consumption) --- */
+.log-toggle-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-dark);
+    display: block;
+    margin-bottom: 5px;
+    cursor: pointer;
+    padding: 8px 0;
+    user-select: none;
+}
+
+.log-toggle-label::after {
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+.log-entry-row.toggle-collapsed .log-toggle-label::after {
+    transform: rotate(-90deg);
+}
+
+.toggle-group {
+    display: none;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+    align-items: center;
+    max-height: 150px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.log-entry-row.toggle-open .toggle-group {
+    display: flex;
+}
+
+/* Individual toggle button */
+.toggle-option {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
-}
-.page-title {
-    font-size: 2rem;
-    color: #4CAF50;
-    margin-bottom: 20px;
+    padding: 8px 12px;
+    min-height: 36px;
+    line-height: 1;
+    white-space: nowrap;
+    border: 1px solid var(--border-soft);
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: var(--bg-light);
+    color: var(--text-medium);
+    transition: transform 0.12s ease, background-color 0.15s ease, color 0.15s ease;
+    user-select: none; /* Prevent text selection on click */
 }
 
-.home-actions {
+/* Selected/Active toggle state */
+.toggle-option.selected {
+    background-color: var(--green);
+    color: var(--bg-white);
+    border-color: var(--green);
+    font-weight: 500;
+    box-shadow: 0 6px 14px rgba(52,168,83,0.12);
+    transform: translateY(-2px);
+}
+
+.toggle-option:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(132,247,140,0.15);
+}
+
+.nested-dropdown-trigger {
+    background: #e0ffd1;
+}
+
+.log-calculate-btn {
+    background: #9fdbf3;
+    color: #009951;
+    border: 2px solid #9df073;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* NAVBAR - Mobile Bottom / Desktop Left Sidebar */
+.navbar {
+    position: fixed;
+    left: 5%;
+    right: 5%;
+    bottom: 0;
+    width: auto;
+    height: 70px;
+    background: #e8f5e0;
+    border-top: 2px solid #2c2c2c;
     display: flex;
-    gap: 1rem;
-    margin-top: 20px;
-    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    z-index: 998;
 }
 
-.home-actions .cta-button {
+.nav-icon {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
     text-decoration: none;
+    transition: transform 0.2s;
+}
+
+.nav-icon:hover {
+    transform: scale(1.1);
+}
+
+.nav-icon-img {
+    width: 28px;
+    height: 28px;
+}
+
+
+/* Responsive: Tablet and Desktop (768px+) */
+@media (min-width: 768px) {
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 40px 24px 80px 110px;
+        background: linear-gradient(180deg, #c4eeff 0%, #d4f5e0 50%, #e8f5e0 100%);
+    }
+
+    .main-content {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: "temp airqual"
+                            "co2 co2"
+                            "routine routine";
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 1060px;
+        min-height: auto;
+        margin: 0 auto;
+        border-radius: 24px;
+        padding: 32px 32px 72px;
+        background: linear-gradient(180deg, #c4eeff 0%, #d4f5e0 50%, #e8f5e0 100%);
+    }
+
+    .header {
+        margin-bottom: 30px;
+    }
+
+    .page-title {
+        font-size: 36px;
+    }
+
+    .earth-icon-container {
+        width: 60px;
+        height: 60px;
+    }
+
+    .earth-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .temperature {
+        font-size: 52px;
+    }
+
+    .section-title {
+        font-size: 14px;
+    }
+
+    .temperature-section {
+        grid-column: 1 / 9;
+        grid-row: 1 / 2;
+        margin-bottom: 0;
+    }
+
+    .temperature-display {
+        padding-left: 90px;
+    }
+
+    .air-quality-section {
+        grid-column: 2 / 3;
+        grid-row: 1 / 2;
+
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 0;
+        border: 1px solid #a8a8a8;
+        
+    }
+
+    .section-header {
+        align-items: center;
+    }
+
+    .section-title {
+        align-items: center;
+    }
+
+    .air-quality-value {
+        padding-left: 150px;
+    }
+
+    .air-quality-status {
+        padding-left: 150px;
+    }
+
+    .air-quality-icon-container {
+        width: 60px;
+        height: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
+        padding-right: 170px;
+    }
+    .air-quality-icon {
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+    }
+
+    .co2-section {
+        grid-column: 1 / 3;
+        grid-row: 2 / 3;
+        margin-bottom: 0;
+        z-index: 2;
+    }
+
+    .co2-value {
+        font-size: 180px;
+        font-style: italic;
+    }
+
+    .co2-section::before {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 250px;
+        width: 250px;
+        height: 200px;
+        background-color: #86D8F8;
+        border-radius: 50%;
+        opacity: 0.8;
+        z-index: 1;
+    }
+
+    .co2-section::after {
+        content: '';
+        position: absolute;
+        bottom: 2px;
+        right: 250px;
+        width: 250px;
+        height: 200px;
+        background-color: #B4F886;
+        border-radius: 50%;
+        opacity: 0.8;
+        z-index: 1;
+    }
+
+    .routine-section {
+        grid-column: 1 / 3;
+        grid-row: 3 / 4;
+        overflow:auto;
+    }
+
+    .routine-details-inner {
+        overflow: auto;
+    }
+    .routine-details {
+        overflow: auto;
+    }
+
+    /* Reposition navbar to a vertical sidebar on the left */
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: auto;
+        transform: none;
+        width: 80px;
+        max-width: none;
+        height: 100vh;
+        background: #ffffff;
+        border-top: none;
+        border-right: 1px solid #ddd;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px 0;
+        gap: 40px;
+        margin-top: 0;
+    }
+
+    .nav-icon {
+        width: 60px;
+        height: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .nav-icon-img {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+/* Large Screens (1200px+) */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1200px;
+        padding: 40px 48px 96px;
+        margin: 0 auto;
+    }
+
+    .page-title {
+        font-size: 42px;
+    }
+
+    .temperature {
+        font-size: 56px;
+    }
+
+    .section-title {
+        font-size: 16px;
+    }
+
+    .navbar {
+        width: 100px;
+        padding: 30px 0;
+    }
+
+    .nav-icon {
+        width: 80px;
+        height: 80px;
+    }
+
+    .nav-icon-img {
+        width: 32px;
+        height: 32px;
+    }
 }
