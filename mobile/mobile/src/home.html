@@ -1,26 +1,196 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EcoTracker | Home</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/homePage.css" />
-  </head>
-  <body>
-    <div id="home-container">
-      <h2 class="page-title">Home Dashboard</h2>
-      <p>This is your main content area.</p>
-      <div class="home-actions">
-        <a class="cta-button" href="insights.html">Go to Insights</a>
-        <a class="cta-button" href="profile.html">Go to Profile</a>
-      </div>
-      <div class="home-actions" style="margin-top: 1.5rem;">
-        <a class="cta-button" href="signIn.html">Log Out</a>
-      </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Environmental Dashboard</title>
+    <link rel="stylesheet" href="css/homePage.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="page-title">Home</h1>
+            <div class="earth-icon-container">
+                <img src="assets/imgs/earth.png" alt="Earth" class="earth-icon">
+            </div>
+        </header>
+        
+        <main class="main-content">
+            <section class="temperature-section">
+                <div class="temperature-display">
+                    <h2 class="temperature">27℃</h2>
+                </div>
+            </section>
+            
+            <section class="air-quality-section">
+                <div class="section-header">
+                    <h3 class="section-title">Air Quality Index</h3>
+                </div>
+                <div class="air-quality-content">
+                    <div class="air-quality-left">
+                        <div class="air-quality-value">53</div>
+                        <div class="air-quality-status">Moderate</div>
+                    </div>
+                    <div class="air-quality-icon-container">
+                        <img src="assets/imgs/airQuality.png" alt="Air Quality" class="air-quality-icon">
+                    </div>
+                </div>
+            </section>
+            
+            <section class="co2-section">
+                <div class="co2-value">0%</div>
+                <div class="co2-label">CO2 emitted</div>
+            </section>
+            
+            <section class="routine-section">
+                <h3 class="section-title">Daily Routine Log</h3>
+                <p class="routine-description">Input your daily routine here. Click each category</p>
+                
+                <div class="routine-categories">
+    
+    <div class="routine-item" data-log-name="Transportation"> 
+        <div class="category-card">
+            <div class="category-icon">🚗</div> 
+            <span class="category-name">Transportation Log</span>
+            <span class="category-chevron">›</span>
+        </div>
+        <div class="routine-details">
+            <div class="routine-details-inner">
+                <div class="log-entry-row nested-dropdown">
+                    <div class="nested-dropdown-trigger" data-dropdown-id="transportMode">
+                        <span id="transportModeLabel">Select Mode of Transportation</span>
+                        <span class="category-chevron">›</span>
+                    </div>
+                    
+                    <div class="nested-options" id="transportMode">
+                        <div class="nested-option" data-value="Walk">🚶‍♂️ Walk</div>
+                        <div class="nested-option" data-value="Motorcycle">🏍️ Motorcycle</div>
+                        <div class="nested-option" data-value="Car">🚗 Car</div>
+                        <div class="nested-option" data-value="Bus">🚌 Bus</div>
+                        <div class="nested-option" data-value="Electric Bus">⚡🚌 Electric Bus</div>
+                        <div class="nested-option" data-value="Train">🚆 Train</div>
+                    </div>
+                </div>
+                <div class="log-entry-row">
+                    <label>No. of kilometers traveled</label>
+                    <input type="number" class="log-input-field" placeholder="Value">
+                </div>
+                <button class="log-calculate-btn">Calculate</button>
+            </div>
+        </div>
     </div>
-  </body>
+
+    <div class="routine-item" data-log-name="Energy"> 
+        <div class="category-card">
+            <div class="category-icon">💡</div> 
+            <span class="category-name">Energy Log (Electricity)</span>
+            <span class="category-chevron">›</span>
+        </div>
+        <div class="routine-details">
+            <div class="routine-details-inner">
+                <div class="log-entry-row">
+                    <label>No. of hours electricity used</label>
+                    <input type="number" class="log-input-field" placeholder="Value">
+                </div>
+                <button class="log-calculate-btn">Calculate</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="routine-item" data-log-name="Consumption"> 
+    <div class="category-card">
+        <div class="category-icon">🛒</div> 
+        <span class="category-name">Consumption Log (Food/Goods)</span>
+        <span class="category-chevron">›</span>
+    </div>
+    <div class="routine-details">
+        <div class="routine-details-inner">
+            
+            <div class="log-entry-row nested-dropdown">
+                <div class="nested-dropdown-trigger" data-dropdown-id="mealOptions">
+                    <span id="mealOptionsLabel">Select meal(s) consumed today</span>
+                    <span class="category-chevron">›</span>
+                </div>
+                <div class="nested-options" id="mealOptions">
+                    <span class="toggle-option">🥩 Meat-based meal</span>
+                    <span class="toggle-option">🥗 Vegetarian meal</span>
+                    <span class="toggle-option">🥬 Vegan meal</span>
+                    <span class="toggle-option">🍚 Rice-heavy meal</span>
+                    <span class="toggle-option">🍞 Bread / bakery</span>
+                    <span class="toggle-option">🍟 Fast food meal</span>
+                    <span class="toggle-option">🥤 Drinks (coffee/tea/milk tea)</span>
+                </div>
+            </div>
+
+            <div class="log-entry-row">
+                <label>No. of total meals consumed today</label>
+                <input type="number" class="log-input-field" placeholder="Value">
+            </div>
+
+            <div class="log-entry-row nested-dropdown">
+                <div class="nested-dropdown-trigger" data-dropdown-id="productOptions">
+                    <span id="productOptionsLabel">Select product(s) purchased today</span>
+                    <span class="category-chevron">›</span>
+                </div>
+                <div class="nested-options" id="productOptions">
+                    <span class="toggle-option">👕 T-shirt</span>
+                    <span class="toggle-option">👟 Shoes</span>
+                    <span class="toggle-option">💻 Gadget / electronics</span>
+                    <span class="toggle-option">🧴 Skincare / cosmetics</span>
+                    <span class="toggle-option">💧 Plastic bottled item</span>
+                    <span class="toggle-option">📦 Packaged goods</span>
+                </div>
+            </div>
+            
+            <div class="log-entry-row">
+                <label>No. of product purchased</label>
+                <input type="number" class="log-input-field" placeholder="Value">
+            </div>
+            <button class="log-calculate-btn">Calculate</button>
+        </div>
+    </div>
+</div>
+    
+    <div class="routine-item" data-log-name="Waste"> 
+        <div class="category-card">
+            <div class="category-icon">🗑️</div> 
+            <span class="category-name">Waste Log</span>
+            <span class="category-chevron">›</span>
+        </div>
+        <div class="routine-details">
+            <div class="routine-details-inner">
+                <div class="log-entry-row">
+                    <label>No. of waste kilograms produced</label>
+                    <input type="number" class="log-input-field" placeholder="Value">
+                </div>
+                <div class="log-entry-row" style="display:flex; align-items:center; gap:10px;">
+                    <input type="checkbox" id="recycledCheck" style="width:18px; height:18px;">
+                    <label for="recycledCheck" style="margin-bottom: 0;">Recycled</label>
+                </div>
+                <button class="log-calculate-btn">Calculate</button>
+            </div>
+        </div>
+    </div>
+</div>  
+            </section>
+        </main>
+        
+        <!-- Bottom Navigation Footer (Mobile) / Left Sidebar (Desktop) -->
+        <nav class="navbar">
+            <a class="nav-icon" href="home.html">
+                <img src="assets/icon/home.png" class="nav-icon-img" alt="Home Icon">
+            </a>
+
+            <a class="nav-icon" href="insights.html">
+                <img src="assets/icon/chart.png" class="nav-icon-img" alt="Chart Icon">
+            </a>
+
+            <a class="nav-icon" href="profile.html">
+                <img src="assets/icon/user.png" class="nav-icon-img" alt="User Icon">
+            </a>
+        </nav>
+    </div>
+    
+    <script src="js/home.js"></script>
+</body>
 </html>

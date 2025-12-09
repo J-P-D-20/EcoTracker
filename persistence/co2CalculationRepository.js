@@ -177,3 +177,91 @@ export async function getMinAndMaxFootprint(supabaseClient, userId) {
     throw err;
   }
 }
+
+export async function getHighestFootprintDay(supabaseClient, userId) {
+  try {
+    const { data, error } = await supabaseClient
+      .from("co2_calculations")
+      .select(`result, created_at`)
+      .eq("user_id", userId);
+
+    if (error) throw new Error(`Failed to fetch daily totals: ${error.message}`);
+    if (!data || data.length === 0) {
+      return { date: null, total: "0.00" };
+    }
+
+    // Group by DATE and sum totals
+    const dailyTotals = {};
+
+    for (const entry of data) {
+      const day = entry.created_at.split("T")[0]; // YYYY-MM-DD
+      const result = parseFloat(entry.result) || 0;
+
+      if (!dailyTotals[day]) dailyTotals[day] = 0;
+      dailyTotals[day] += result;
+    }
+
+    // Find the day with the highest total
+    let highestDate = null;
+    let highestTotal = 0;
+
+    for (const date of Object.keys(dailyTotals)) {
+      if (dailyTotals[date] > highestTotal) {
+        highestTotal = dailyTotals[date];
+        highestDate = date;
+      }
+    }
+
+    return {
+      date: formatDate(highestDate),
+      total: highestTotal.toFixed(2)
+    };
+
+  } catch (err) {
+    throw err;
+  }
+}
+
+export async function getLowestFootprintDay(supabaseClient, userId) {
+  try {
+    const { data, error } = await supabaseClient
+      .from("co2_calculations")
+      .select("result, created_at")
+      .eq("user_id", userId);
+
+    if (error) throw new Error(`Failed to fetch daily totals: ${error.message}`);
+    if (!data || data.length === 0) {
+      return { date: null, total: "0.00" };
+    }
+
+    // Group results by day
+    const dailyTotals = {};
+
+    for (const entry of data) {
+      const day = entry.created_at.split("T")[0]; // "YYYY-MM-DD"
+      const result = parseFloat(entry.result) || 0;
+
+      if (!dailyTotals[day]) dailyTotals[day] = 0;
+      dailyTotals[day] += result;
+    }
+
+    // Find the day with the lowest total
+    let lowestDate = null;
+    let lowestTotal = Infinity;
+
+    for (const date of Object.keys(dailyTotals)) {
+      if (dailyTotals[date] < lowestTotal) {
+        lowestTotal = dailyTotals[date];
+        lowestDate = date;
+      }
+    }
+
+    return {
+      date: formatDate(lowestDate),
+      total: lowestTotal.toFixed(2)
+    };
+
+  } catch (err) {
+    throw err;
+  }
+}
