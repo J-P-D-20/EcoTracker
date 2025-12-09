@@ -29,27 +29,27 @@
 
         <div class="stat-card">
             <h4>Overall Carbon Footprint</h4>
-            <p class="value">33.5kg CO₂</p>
+            <p id="total" class="value"></p>
         </div>
 
         <div class="stat-card">
             <h4>Avg. Carbon Footprint</h4>
-            <p class="value">10.5kg CO₂</p>
+            <p  id="average" class="value"></p>
         </div>
 
         <div class="stat-card date-stat">
             <h4>Lowest Emission Date</h4>
             <div class="value-line">
-                <span class="date">Dec 1, 2025</span>
-                <span class="emission">2.1kg CO₂</span>
+                <span id="min-date" class="date"></span>
+                <span id="min-carbon" class="emission"></span>
             </div>
         </div>
 
         <div class="stat-card date-stat">
             <h4>Highest Emission Date</h4>
             <div class="value-line">
-                <span class="date">Dec 5, 2025</span>
-                <span class="emission">49kg CO₂</span>
+                <span  id="max-date" class="date"></span>
+                <span id="max-carbon" class="emission"></span>
             </div>
         </div>
 
@@ -77,4 +77,69 @@
 </div>
 
 </body>
+
+<script>
+    //average co2 fetch
+    fetch("http://localhost:3000/co2/average",{
+        method : "GET",
+        headers: {
+            "Content-Type" : "application/json",
+            authorization : `Bearer ${localStorage.getItem("token")}`
+        }
+    })
+    .then(response => response.json())
+    .then(data =>{
+            document.getElementById("average").textContent = data.average + "kg CO₂";
+    }).catch(error => {
+        console.error("Error fetching average CO2 data:", error);
+    });
+
+    //total co2 fetch
+    fetch("http://localhost:3000/co2/total",{
+        method : "GET",
+        headers: {
+            "Content-Type" : "application/json",
+            authorization : `Bearer ${localStorage.getItem("token")}`
+        }
+    })
+    .then(response => response.json())
+    .then(data =>{
+            document.getElementById("total").textContent = data.total + "kg CO₂";
+    }).catch(error => {
+        console.error("Error fetching total CO2 data:", error);
+    });
+
+    //fetch min co2
+    fetch("http://localhost:3000/co2/footprints/min", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        document.getElementById("min-date").textContent = data.min.created_at;
+        document.getElementById("min-carbon").textContent = data.min.result + " kg CO₂";
+    }).catch((error) => {
+        console.error("Error fetching minimum CO2 data:", error);
+    });
+
+
+    //fetch max co2
+    fetch("http://localhost:3000/co2/footprints/max", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        document.getElementById("max-date").textContent = data.max.created_at;
+        document.getElementById("max-carbon").textContent = data.max.result + "kg CO₂";
+    }).catch((error) => {   
+        console.error("Error fetching maximum CO2 data:", error);
+    });
+</script>
 </html>

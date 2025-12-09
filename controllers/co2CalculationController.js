@@ -1,6 +1,6 @@
 import express from 'express';
 import * as calculation from '../services/co2CalculationService.js';
-import { getAverageFootprint } from '../persistence/co2CalculationRepository.js';
+import { getAverageFootprint, getTotalFootprint,getMinFootprint,getMaxFootprint } from '../persistence/co2CalculationRepository.js';
 import {AuthenticateToken }from '../middleware/authMiddleware.js';
 
 const router = express.Router();
@@ -73,10 +73,45 @@ router.get('/average',AuthenticateToken, async (req, res) => {
     try {
         const userId = req.user.id;  
         const average = await getAverageFootprint(req.supabase,userId);
-        res.json({ average: `${average} kg` });
+        res.json({ average: `${average}` });
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
 });
+
+//total footprint route
+router.get('/total',AuthenticateToken, async (req,res) => {
+    try {
+        const userId = req.user.id;
+        const total = await getTotalFootprint(req.supabase,userId);
+        res.json({ total: `${total}` });
+    } catch (err) { 
+        res.status(500).json({ message: err.message });
+    } 
+});
+
+ 
+router.get('/footprints/min', AuthenticateToken, async (req, res) => {
+  try {                 
+    const userId = req.user.id;
+    const min = await getMinFootprint(req.supabase, userId);
+    res.json({ min });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+
+
+router.get('/footprints/max', AuthenticateToken, async (req, res) => {
+  try {                 
+    const userId = req.user.id; 
+    const max = await getMaxFootprint(req.supabase, userId);
+    res.json({ max });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 
 export default router;

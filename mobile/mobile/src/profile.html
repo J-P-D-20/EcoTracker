@@ -137,7 +137,7 @@
         }
       }).then((response) => response.json())
       .then((data) => {
-        document.getElementById("min").textContent = data.min.calculation_type + " kg CO₂";
+        document.getElementById("min").textContent = data.min.calculation_type;
       }).catch((error) => {
         console.error("Error fetching profile data:", error);
       });
@@ -151,7 +151,7 @@
       }
     }).then((response) => response.json())
     .then((data) => {
-      document.getElementById("max").textContent = data.max.calculation_type + " kg CO₂";
+      document.getElementById("max").textContent = data.max.calculation_type;
     }).catch((error) => {
       console.error("Error fetching profile data:", error);
     });
