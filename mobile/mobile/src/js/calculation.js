@@ -17,17 +17,24 @@ headers: {
 
  const percentage = document.getElementById('percent')
 
- fetch('http://localhost:3000/co2/percentage', {
-    method: 'GET',
-    headers: {
-        'Authorization': `Bearer ${token}`
-    }
-})
-.then(res => res.json())
-.then(data => {
-    percentage.textContent = `${data.percentage}%`;
-})
-.catch(err => console.error('Error fetching CO2 percentage:', err));
+ function loadPercentage() {
+    const token = localStorage.getItem('token');
+
+    fetch('http://localhost:3000/co2/percentage', {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById('percent').textContent = `${data.percentage}%`;
+    })
+    .catch(err => console.error('Error fetching CO2 percentage:', err));
+}
+
+loadPercentage();
+
 
 const transportOptions = document.querySelectorAll('#transportMode .nested-option');
 const transportLabel = document.getElementById('transportModeLabel');
@@ -64,7 +71,7 @@ document.getElementById('transportation').addEventListener('click', () => {
     })
     .then(res => res.json())
     .then(data => {
-        percentage.textContent = `${data.percentage}%`;
+       loadPercentage();
     })
     .catch(err => console.error('Error fetching CO2 data:', err));
 });
@@ -96,7 +103,7 @@ document.getElementById('energy').addEventListener('click', () => {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}` // make sure token is defined
+            'Authorization': `Bearer ${token}` 
         },
         body: JSON.stringify({
             usage: selectedEnergy,
@@ -105,7 +112,7 @@ document.getElementById('energy').addEventListener('click', () => {
     })
     .then(res => res.json())
     .then(data => {
-        alert(`Your energy CO2 emission is ${data.result} kg`);
+        loadPercentage();
     })
     .catch(err => console.error('Error fetching CO2 data:', err));
 });
@@ -170,7 +177,7 @@ calculateBtn.addEventListener('click', () => {
     })
     .then(res => res.json())
     .then(data => {
-        alert(`Your total consumption CO2 emission is ${data.result} kg`);
+        loadPercentage();
     })
     .catch(err => console.error('Error fetching CO2 data:', err));
 });
@@ -209,7 +216,7 @@ wasteBtn.addEventListener('click', () => {
     })
     .then(res => res.json())
     .then(data => {
-        alert(`Your waste CO2 emission is ${data.result} kg`);
+        loadPercentage();
     })
     .catch(err => console.error('Error fetching waste CO2 data:', err));
 });

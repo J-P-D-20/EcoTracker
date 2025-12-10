@@ -93,6 +93,75 @@
         </div>
       </div>
     </div>
-    <script src="js/profile.js"></script>
+    <script>
+
+    //first name
+    fetch("http://localhost:3000/profile/fname", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        document.getElementById("name").textContent = data.fname;
+      })
+      .catch((error) => {
+        console.error("Error fetching profile data:", error);
+      });
+
+
+      //email
+      fetch("http://localhost:3000/profile/email", {
+        method :"GET",
+        headers :{
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        }
+      }).then((response) => response.json())
+      .then((data) => {
+        document.getElementById("email").textContent = data.email;
+      }).catch((error) => {
+        console.error("Error fetching profile data:", error);
+      });
+
+      //least co2
+      fetch("http://localhost:3000/profile/footprints/min", {
+        method :"GET",
+        headers :{
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        }
+      }).then((response) => response.json())
+      .then((data) => {
+        document.getElementById("min").textContent = data.min.calculation_type;
+      }).catch((error) => {
+        console.error("Error fetching profile data:", error);
+      });
+
+    //most co2
+    fetch("http://localhost:3000/profile/footprints/max", {
+      method :"GET",
+      headers :{
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      }
+    }).then((response) => response.json())
+    .then((data) => {
+      document.getElementById("max").textContent = data.max.calculation_type;
+    }).catch((error) => {
+      console.error("Error fetching profile data:", error);
+    });
+
+
+    // Logout functionality
+  document.getElementById('logoutBtn').onclick = () => {
+    localStorage.removeItem('token'); // remove token
+    window.location.href = 'signIn.html'; // redirect to login
+};
+
+
+  </script>
   </body>
 </html>
