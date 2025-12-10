@@ -39,19 +39,20 @@ document.addEventListener('DOMContentLoaded', function() {
             // --- SINGLE SELECTION LOGIC (ONLY for Transportation mode) ---
             // This block handles the single-select options inside the dropdown and closes it on click.
             // Only apply this for the Transportation nested dropdown
-            if (optionsId === 'transportMode' && optionsElement.querySelector('.nested-option')) {
-                 optionsElement.querySelectorAll('.nested-option').forEach(option => {
-                    option.onclick = function() {
-                        const value = this.textContent.trim();
-                        const labelElement = document.getElementById(optionsId + 'Label');
-                        
-                        labelElement.textContent = value; 
-                        
-                        // Close the nested dropdown after selection
-                        dropdownWrapper.classList.remove('open');
-                    };
-                });
-            }
+            optionsElement.querySelectorAll('.nested-option').forEach(option => {
+    option.onclick = function(event) {
+        event.stopPropagation(); // prevent bubbling
+
+        const value = this.textContent.trim();
+        const labelElement = document.getElementById(optionsId + 'Label');
+
+        if (labelElement) labelElement.textContent = value;
+
+        // Auto-close AFTER selecting
+        dropdownWrapper.classList.remove('open');
+    };
+});
+
         });
     });
 
