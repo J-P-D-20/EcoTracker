@@ -14,7 +14,7 @@ router.get('/fname',AuthenticateToken, async (req,res) =>{
     const supabaseClient = req.supabase
     const fname = await getProfile(supabaseClient,userId)
     res.json({ fname: fname.fname });
-    console.log('Profile data:', fname);
+    //console.log('Profile data:', fname);
   } catch (err){
     res.status(500).send({message: err.message});
   }

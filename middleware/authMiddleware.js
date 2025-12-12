@@ -11,7 +11,6 @@ export async function AuthenticateToken(req, res, next) {
         return res.status(401).json({ error: 'No token provided' });
     }
     
-   
     const supabaseAuth = createClient(
         process.env.SUPABASE_URL,
         process.env.SUPABASE_SERVICE_ROLE_KEY,

@@ -29,7 +29,7 @@ export async function saveCalculation(supabaseClient,userId, calculationType, in
   }
 }
 
-// Fetches all calculations for a user
+/* Fetches all calculations for a user
 export async function getCalculationsByUser(supabaseClient,userId) {
   try {
     const { data, error } = await supabaseClient
@@ -43,7 +43,7 @@ export async function getCalculationsByUser(supabaseClient,userId) {
   } catch (err) {
     throw err;
   }
-}
+}*/
 
 // Calculates the total CO2 footprint for a user 
 export async function getTotalFootprint(supabaseClient,userId) {
@@ -61,7 +61,7 @@ export async function getTotalFootprint(supabaseClient,userId) {
   }
 }
 
-// Update a calculation (if mag add og edit functionality later)
+/*Update a calculation (if mag add og edit functionality later)
 export async function updateCalculation(supabaseClient, calculationId, userId, updates) {
   try {
     const { data, error } = await supabaseClient
@@ -77,9 +77,9 @@ export async function updateCalculation(supabaseClient, calculationId, userId, u
   } catch (err) {
     throw err;
   }
-}
+}*/
 
-// Delete a calculation (if mag add ta og delete functionality)
+/* Delete a calculation (if mag add ta og delete functionality)
 export async function deleteCalculation(supabaseClient, calculationId, userId) {
   try {
     const { error } = await supabaseClient
@@ -93,7 +93,7 @@ export async function deleteCalculation(supabaseClient, calculationId, userId) {
   } catch (err) {
     throw err;
   }
-}
+}*/
 
 // Calculates the average CO2 footprint for a user 
 export async function getAverageFootprint(supabaseClient,userId) {
@@ -164,7 +164,7 @@ export async function getMaxFootprint(supabaseClient,userId) {
   }
 }
 
-// Calculates both min and max CO2 footprint
+/*Calculates both min and max CO2 footprint
 export async function getMinAndMaxFootprint(supabaseClient, userId) {
   try {
     const [min, max] = await Promise.all([
@@ -176,7 +176,7 @@ export async function getMinAndMaxFootprint(supabaseClient, userId) {
   } catch (err) {
     throw err;
   }
-}
+}*/
 
 export async function getHighestFootprintDay(supabaseClient, userId) {
   try {

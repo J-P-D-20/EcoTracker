@@ -46,7 +46,7 @@ router.post('/consumption',AuthenticateToken, async (req,res) => {
     try {
         const userId = req.user.id;
 
-        const { logs } = req.body; // <-- get logs array from request body
+        const { logs } = req.body; 
         
         if (!logs || !Array.isArray(logs) || logs.length === 0) {
             return res.status(400).json({ message: "No logs provided" });

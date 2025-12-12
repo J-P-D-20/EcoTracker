@@ -14,18 +14,6 @@ export async function saveUserProfile(id, fname, lname, city, province) {
     return data[0];
 }
 
-// Sign in existing user
-export async function signInUser(email, password) {
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
-
-  console.log("data:", data.session.access_token);
-  //console.log("error:", error);
-  if (error) throw error;
-  return data;
-}
 
 // Fetch profile
 export async function getProfile(supabaseClient,userId) {
