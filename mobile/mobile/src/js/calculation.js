@@ -72,6 +72,8 @@ document.getElementById('transportation').addEventListener('click', () => {
     .then(res => res.json())
     .then(data => {
        loadPercentage();
+       alert(`your carbon emission result is ${data.result}` );
+
     })
     .catch(err => console.error('Error fetching CO2 data:', err));
 });
@@ -113,6 +115,7 @@ document.getElementById('energy').addEventListener('click', () => {
     .then(res => res.json())
     .then(data => {
         loadPercentage();
+        alert(`your carbon emission result is ${data.result}` );
     })
     .catch(err => console.error('Error fetching CO2 data:', err));
 });
@@ -178,6 +181,7 @@ calculateBtn.addEventListener('click', () => {
     .then(res => res.json())
     .then(data => {
         loadPercentage();
+        alert(`your carbon emission result is ${data.result}` );
     })
     .catch(err => console.error('Error fetching CO2 data:', err));
 });
@@ -217,6 +221,7 @@ wasteBtn.addEventListener('click', () => {
     .then(res => res.json())
     .then(data => {
         loadPercentage();
+        alert(`your carbon emission result is ${data.result}` );
     })
     .catch(err => console.error('Error fetching waste CO2 data:', err));
 });
