@@ -131,9 +131,9 @@ export async function wasteCo2Calculation(supabaseClient,userID,waste,recycled =
     try{
         let result
         if(recycled){
-            result = waste * 1.8;
-        }else{
             result = waste * 0.10;
+        }else{
+            result = waste * 1.8;
         }
         
         const savedData = await db.saveCalculation(
